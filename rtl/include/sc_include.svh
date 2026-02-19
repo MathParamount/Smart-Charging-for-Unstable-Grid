@@ -1,8 +1,8 @@
-`ifndef SC_INCLUDE.SVH
-`define SC_INCLUDE.SVH
+`ifndef SC_INCLUDE_SVH
+`define SC_INCLUDE_SVH
 
 //Grid conditions
-
+/*
 typedef enum logic [1:0] {
 	GRID_NORMAL,
 	GRID_UNSTABLE,
@@ -18,6 +18,7 @@ typedef enum logic [2:0] {
 	WAIT,
 	FAULT
 } state_t;
+*/
 
 //adc constants
 
