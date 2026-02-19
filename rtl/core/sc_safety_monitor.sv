@@ -1,123 +1,92 @@
-`timeunit 1ns/1ps;
+//`timeunit 1ns/1ps;
+`include "rtl/include/sc_include.svh"
 
-`include "include/sc_include.svh"
-
-module charge_supervised
+module sc_safety_monitor
 (
-	input logic clk, 
 	input logic reset_n, 
 	
-	input logic grid_status,
-	input logic battery_connected,
-	
-	//Machine learning
-	input logic ml_predict_instability, 
-
-	//actuators
-	output logic fault_flag, 		//general fail
-	output logic charge_enable,	//activate chagrging
-	output logic [3:0] fault_code,	//fail code to diagnostic
-	
-	output grid_state_t current_state
+	sc_interface_if.safety safety_bus
 );
-	
-	//internal signals
-	reg [2:0] nex_state;
-	logic charge_enable_next, fault_flag_next;
-	logic [15:0] fault_code_next;
-	
-	//assigns
-	assign fault_flag = fault_flag_next;
-	assign fault_code = fault_code_next;
-	assign charge_enable = charge_enable_next;
+	import sc_types_pkg::*;
 	
 	//combinational logic to state conditions
 	always_comb begin
 		//default
-		next_state = current_state;
-		grid_status = current_state;
-		charge_enable_next = 0;
-		fault_flag_next = fault_flag;
-		load_request = 0;
+		safety_bus.fault_flag = 1'b0;
+		safety_bus.fault_code = 4'b0;
 		
-		case(current_state)
+		case(safety_bus.current_state)
 			IDLE: begin
-				fault_flag_next = 0;
-				fault_code_next = 0;
-				charge_enable_next = 0;
-				
-				if(battery_connected) begin
-					next_state = CHECK_GRID;
-				end
+				safety_bus.fault_flag = 0;
+				safety_bus.fault_code = '0;
 			end
 			
 			CHECK_GRID: begin
-			    case(grid_state)
+			    case(safety_bus.grid_state)
 				GRID_CRITICAL: begin
-				    next_state = FAULT;
-				    fault_flag_next = 1;
+				    safety_bus.fault_flag = 1'b1;
+				    safety_bus.fault_code = 4'b0001;
 				end
 				
-				GRID_UNSTABLE: next_state = WAIT;
+				GRID_UNSTABLE: begin
+				    safety_bus.fault_code = 4'b0010;
+				end
 				
-				GRID_NORMAL: next_state = CHARGING;
-				
-				default: next_state = FAULT;	
+				GRID_NORMAL: begin 
+				   safety_bus.fault_code = 4'b0011;			
+				end
+				default: begin
+				   safety_bus.fault_flag = 1'b1;
+				   safety_bus.fault_code = '0;			
+				end
 			    endcase
+			    
+			   	if(safety_bus.ml_predict_instability) begin
+			   	    safety_bus.fault_flag = 1'b1;
+			   	    safety_bus.fault_code = 4'b0100;
+			   	end
 			end
 
 			CHARGING: begin
 				//grid verification
 				
-				case(grid_state)
+				case(safety_bus.grid_state)
 				   GRID_CRITICAL: begin
-				     charge_enable_next = 0;
-				     fault_flag_next = 1;
-				     next_state = FAULT;
+				     safety_bus.fault_flag = 1'b1;
+				     safety_bus.fault_code = 4'b0101;
 				   end
 				   GRID_UNSTABLE: begin
-					charge_enable_next = 0;
-					next_state = WAIT;
+					safety_bus.fault_code = 4'b0110;
 				   end
-				   battery_full: begin
-				     charge_enable_next = 0;
-				     next_state = IDLE;
+				   GRID_NORMAL: begin
+					safety_bus.fault_code = 4'b0111;
 				   end
 				   
-				   default: next_state = IDLE;	
+				   default: begin
+				   	safety_bus.fault_flag = 0;
+				   end
 			        endcase
 			end
 			
 			WAIT: begin
 			
-			   if(GRID_NORMAL && !ml_predict_instability)
+			   if(safety_bus.grid_state == GRID_NORMAL && !safety_bus.ml_predict_instability)
 			   begin
-				next_state = CHECK_GRID;
+				safety_bus.fault_flag = 0;
 			   end
 			end
 
 			FAULT: begin
-				charge_enable_next = 0;
-				
 				if(reset_n) begin
-					fault_flag_next = 0;
-					next_state = IDLE;
+					safety_bus.fault_code = '0;
+					safety_bus.fault_flag = 0;
 				end
 			end
+			
+			default: begin
+				safety_bus.fault_flag = 0;
+			end
 		endcase
-	end
-	
-	always_ff @(posedge clk or negedge reset_n) begin
-		if(!reset_n) begin
-			charge_enable <= 0;
-			fault_flag <= 0;
-			current_state <= IDLE;
-		end
-		else begin
-			current_state <= next_state;
-			charge_enable <= charge_enable_next;
-			fault_flag <= fault_flag_next;
-		end
 	end
 	
 	//outputs(assigns)
