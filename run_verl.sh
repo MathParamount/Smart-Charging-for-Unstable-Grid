@@ -18,6 +18,9 @@ verilator \
   --build \
   --trace \
   -Wall \
+  --assert \
+  --x-assign unique \
+  --x-initial unique \
   --top-module ${TOP} \
   -Irtl \
   -Irtl/interface \
