@@ -27,6 +27,7 @@ verilator \
   rtl/core/sc_fsm.sv \
   rtl/core/sc_safety_monitor.sv \
   rtl/core/sc_top.sv \
+  formal/*.sv \
   tb_wrapper/sc_dut.sv \
   sim_run_tb.cpp \
   -o sim_${TOP} \
