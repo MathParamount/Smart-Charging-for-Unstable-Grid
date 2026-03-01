@@ -11,7 +11,7 @@ a_assert: assert property (@(posedge clk)
 b_assert: assert property (@(posedge clk)
 	(fsm_bus.current_state == CHARGING && (fsm_bus.battery_full || !fsm_bus.battery_connected))
 	|=>
-	(fsm_bus.current_state != CHARGING)
+	(fsm_bus.current_state != CHARGING && fsm_bus.current_state != CHECK_GRID)
 	);
 	
 //ensuring the FAULT transaction state
