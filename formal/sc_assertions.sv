@@ -28,4 +28,10 @@ d_assert: assert property (@(posedge clk)
 	(fsm_bus.current_state != IDLE && fsm_bus.current_state != FAULT && fsm_bus.current_state != CHECK_GRID)
 	);
 	
+e_assert: assert property (@(posedge clk)
+	!(fsm_bus.current_state inside {IDLE,CHECK_GRID,CHARGING,WAIT,FAULT})
+	|=>
+	fsm_bus.current_state == IDLE
+	);
+	
 endmodule
