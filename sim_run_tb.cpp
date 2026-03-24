@@ -30,34 +30,92 @@ int main(int argc, char **argv)
   top->trace(pointer,99);
   pointer->open("wave.vcd");
   
-  cout << "---------Device_simulation-----------" << endl;
+  cout << "---------DEVICE_SIMULATION-----------" << endl;
   
   top->clk = 0;
   top->reset_n = 0;
-  top->eval();
 
+//
   for(int i =0; i< 5; i++)
   {
 		top->clk = !top->clk;
 		top->eval();
+		
+		pointer->dump(main_t*10 + 5);
+
+		!(top->reset_n) ? cout << "reset is active" << endl : cout << "isn't active" << endl;
   }
 
-  cout << "---------------SIGNAL_TEST-----------------" << endl;
+  cout << "Actual time count: " << main_t << endl;
 
+//
+
+  cout << "---------------SIGNAL_TEST-----------------" << endl;
+  
+  top->clk = 0;
   top->reset_n = 0;
-  for(int i =0; i < 5; i++) tick(top);
+
+  //pointer->dump(main_t*10);	//manual dump for choice
+
+  /*
+  for(int i =0; i < 5; i++) tick(top,pointer);	 //Detect 5 clock stimulus
+  */
+
   top->reset_n = 1;
 
-  tick(top);		//stabilization of 1 cycle
-
-  top->battery_connected = 1;
-
+  tick(top,pointer);		//stabilization of 1 cycle
+  
+  //system test
+  
   top->battery_full = 0;
-  top->grid_state = 2;	//Grid_critical
+  top->relay_active = 0;
+  top->charge_enable = 0;
+  top->grid_state = 0;
+  tick(top,pointer);
+	
+  while(main_t < 50)
+  {
+  		top->battery_connected = 1;
+	
+  		if(main_t <= 10)
+  		{
+		/*
+    	top->relay_active = 0;
+	 	top->charge_enable = 0;
+		top->fault_flag = 0;
+	 	*/
+		top->grid_state = 0;
+  		}
+  		else if(main_t <= 20)
+  		{
+	 	//top->relay_active = 0;
+	 	top->grid_state = 1;
+  		}
+  		else if(main_t <= 30)
+  		{
+	 	/*
+		top->charge_enable = 1;
+	 	top->relay_active = 1;
+	 	*/
+		top->grid_state = 2;
+  		}
+  		else
+  		{
+	 	/*
+		top->relay_active = 0;
+	 	top->charge_enable =0;
+		top->fault_flag = 1;
+	 	top->battery_full = 1;
+		*/
+	 	top->grid_state = 4;
+  		}
+
+		//clock generation
+		tick(top,pointer);
+	}
+  //top->grid_state = 0;	//Grid state(manual)
 
   top->ml_predict_instability = 0;
-
-  tick(top);		//capture active edge
 
   //Verify result
   cout << "battery connected: " << (bool)top->battery_connected << endl;
@@ -71,8 +129,6 @@ int main(int argc, char **argv)
   {
      top->clk = !top->clk;
      top->eval();
-     
-     pointer->dump(time*10);
      
      if(time%100 == 0) 
 	  {
