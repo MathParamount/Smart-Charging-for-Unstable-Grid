@@ -1,0 +1,58 @@
+Transitory digital & analog circuit
+*
+*
+*date: 17/04/2026
+*Gabriel da cruz
+*
+*
+*
+
+* Circuit description
+V1 n1 0 SIN(0 127 60)
+R1 n2 n1 0.1m
+L1 n3 n2 0.1u
+Vmeas1 n4 n3 0V	;Works with a amperimeter
+
+*Key control
+
+Vctrl1 ctrl1 0 DC 0
+Vctrl2 ctrl2 0 DC 0
+Vctrl3 ctrl3 0 DC 0
+Vctrl4 ctrl4 0 DC 0
+
+.model SW SW(Ron=1m Roff=1Meg Vt=2 Vh=0)
+
+* Branches
+S1 n5 n4 ctrl1 0 SW
+R2 n6 n5 100
+Vmeas2 n6 0 0
+
+S2 n7 n4 ctrl2 0 SW
+R3 n8 n7 50
+Vmeas3 n8 0 0
+
+S3 n9 n4 ctrl3 0 SW
+R4 n10 n9 250
+Vmeas4 n10 0 0
+
+S4 n11 n4 ctrl4 0 SW
+R5 n12 n11 200
+Vmeas5 0 n12 0
+
+
+* Overall compilation
+.tran 1e-6 10e-3	;100u 0.2 0 10u  ou 0.0001 0.2	 ou 1u 10m
+
+.control
+set filetype=ascii
+set outfile="ngspice_output.txt"
+*run ; plot I(Vmeas1) I(Vmeas2) I(Vmeas3)	;Can use .save instead of plot to exhibit in C++
+*plot V(n1) I(Vmeas1)
+*print V(n1) V(n2) V(n3)
+
+*print all
+run
+write ngspice_output.txt i(vmeas1) v(ctrl1) v(ctrl2) v(ctrl3) v(ctrl4)
+
+.endc
+.end

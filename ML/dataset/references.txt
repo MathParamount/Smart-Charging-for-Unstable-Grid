@@ -1,0 +1,3 @@
+the reference was acquired from this site:
+
+https://www.kaggle.com/datasets/ziya07/smart-grid-monitoring-dataset

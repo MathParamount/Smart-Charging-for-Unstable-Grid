@@ -17,16 +17,23 @@ verilator \
   --exe \
   --build \
   --trace \
+  --timescale "1ns/1ps" \
   -Wall \
+  --assert \
+  --x-assign unique \
+  --x-initial unique \
   --top-module ${TOP} \
   -Irtl \
   -Irtl/interface \
   -Irtl/pkg \
   rtl/pkg/sc_types_pkg.sv \
+  rtl/include/sc_include_pkg.sv \
   rtl/interface/sc_interface_if.sv \
+  rtl/core/sc_grid_monitor.sv \
   rtl/core/sc_fsm.sv \
   rtl/core/sc_safety_monitor.sv \
   rtl/core/sc_top.sv \
+  formal/*.sv \
   tb_wrapper/sc_dut.sv \
   sim_run_tb.cpp \
   -o sim_${TOP} \
