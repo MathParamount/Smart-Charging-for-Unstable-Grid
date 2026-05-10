@@ -13,7 +13,11 @@ b_assert: assert property (@(posedge clk)
 	|=>
 	(fsm_bus.current_state != CHARGING && fsm_bus.current_state != CHECK_GRID)
 	);
+<<<<<<< HEAD
 	
+=======
+
+>>>>>>> cc3f88259f336a35c3ba70f2c756ca125d91aee8
 //ensuring the FAULT transaction state
 c_assert: assert property (@(posedge clk)
 	(fsm_bus.current_state == FAULT && (fsm_bus.battery_connected || !reset_n) )
@@ -33,5 +37,8 @@ e_assert: assert property (@(posedge clk)
 	|=>
 	fsm_bus.current_state == IDLE
 	);
+<<<<<<< HEAD
 	
+=======
+>>>>>>> cc3f88259f336a35c3ba70f2c756ca125d91aee8
 endmodule

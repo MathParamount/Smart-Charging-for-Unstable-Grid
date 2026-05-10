@@ -1,5 +1,8 @@
+<<<<<<< HEAD
 `timescale 1ns/1ps
 
+=======
+>>>>>>> cc3f88259f336a35c3ba70f2c756ca125d91aee8
 // sc_top.sv
 module sc_top
 (
@@ -8,6 +11,7 @@ input logic reset_n,
 input logic battery_connected,
 input logic battery_full,
 input logic ml_predict_instability,
+<<<<<<< HEAD
 input logic [15:0] grid_voltage_adc,
 //input logic [15:0] grid_current_sensor,
 
@@ -46,18 +50,38 @@ output logic [1:0] grid_state
 	.fsm_bus(sc_interface_bus_t.fsm_connect)
     	);
     
+=======
+input grid_state_t grid_state
+);
+
+	sc_interface_if sc_bus();
+	state_t current_state;
+	
+	//assignments
+	always_comb begin
+  	    sc_bus.battery_connected = battery_connected;
+	    sc_bus.battery_full = battery_full;
+	end
+	
+>>>>>>> cc3f88259f336a35c3ba70f2c756ca125d91aee8
 	sc_fsm u_fsm
 	(
 	  .clk(clk),
 	  .reset_n(reset_n),
+<<<<<<< HEAD
 	  .fsm_bus(sc_interface_bus_t.fsm_connect),
 	  .grid_bus(sc_interface_bus_t.grid_monitor)
+=======
+	  .fsm_bus(sc_bus),
+	  .current_state(current_state)
+>>>>>>> cc3f88259f336a35c3ba70f2c756ca125d91aee8
 	);
 	
 	sc_safety_monitor u_safety
 	(
 	  .clk(clk),
 	  .reset_n(reset_n),
+<<<<<<< HEAD
 	  .safety_bus(sc_interface_bus_t.safety),
 	  .grid_bus(sc_interface_bus_t.grid_monitor)
 	);
@@ -74,4 +98,10 @@ output logic [1:0] grid_state
                  sc_interface_bus_t.data_valid);
     	end
     
+=======
+	  .ml_predict_instability(ml_predict_instability),
+	  .safety_bus(safety_bus)
+	);
+	
+>>>>>>> cc3f88259f336a35c3ba70f2c756ca125d91aee8
 endmodule

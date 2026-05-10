@@ -17,7 +17,10 @@ verilator \
   --exe \
   --build \
   --trace \
+<<<<<<< HEAD
   --timescale "1ns/1ps" \
+=======
+>>>>>>> cc3f88259f336a35c3ba70f2c756ca125d91aee8
   -Wall \
   --assert \
   --x-assign unique \
@@ -27,9 +30,13 @@ verilator \
   -Irtl/interface \
   -Irtl/pkg \
   rtl/pkg/sc_types_pkg.sv \
+<<<<<<< HEAD
   rtl/include/sc_include_pkg.sv \
   rtl/interface/sc_interface_if.sv \
   rtl/core/sc_grid_monitor.sv \
+=======
+  rtl/interface/sc_interface_if.sv \
+>>>>>>> cc3f88259f336a35c3ba70f2c756ca125d91aee8
   rtl/core/sc_fsm.sv \
   rtl/core/sc_safety_monitor.sv \
   rtl/core/sc_top.sv \
