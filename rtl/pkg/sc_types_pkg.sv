@@ -1,4 +1,3 @@
-<<<<<<< HEAD
 `timescale 1ns/1ps
 
 package sc_types_pkg;
@@ -17,21 +16,3 @@ package sc_types_pkg;
      FAULT = 3'b100
   } state_t;
 endpackage
-=======
-package sc_types_pkg;
-  
-  typedef enum logic [1:0] {
-     GRID_NORMAL,
-     GRID_UNSTABLE,
-     GRID_CRITICAL
-  } grid_state_t;
-
-  typedef enum logic [2:0] {
-     IDLE,
-     CHECK_GRID,
-     CHARGING,
-     WAIT,
-     FAULT
-  } state_t;
-endpackage
->>>>>>> cc3f88259f336a35c3ba70f2c756ca125d91aee8
