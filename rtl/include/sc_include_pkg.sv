@@ -14,4 +14,6 @@ parameter logic [31:0] V_CRIT_HIGH_ADC    = 80000;  // > ~220V
  
  //obs: 1 LSB = 1mA.
 
+ //normal -> above 54000 and bellow 75000
+
 endpackage
