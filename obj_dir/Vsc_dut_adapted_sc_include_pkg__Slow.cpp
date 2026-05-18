@@ -7,10 +7,10 @@
 #include "Vsc_dut_adapted_sc_include_pkg.h"
 
 // Parameter definitions for Vsc_dut_adapted_sc_include_pkg
-constexpr SData/*15:0*/ Vsc_dut_adapted_sc_include_pkg::V_CRIT_LOW_ADC;
-constexpr SData/*15:0*/ Vsc_dut_adapted_sc_include_pkg::V_UNSTABLE_MIN_ADC;
-constexpr SData/*15:0*/ Vsc_dut_adapted_sc_include_pkg::V_UNSTABLE_MAX_ADC;
-constexpr SData/*15:0*/ Vsc_dut_adapted_sc_include_pkg::V_CRIT_HIGH_ADC;
+constexpr IData/*31:0*/ Vsc_dut_adapted_sc_include_pkg::V_CRIT_LOW_ADC;
+constexpr IData/*31:0*/ Vsc_dut_adapted_sc_include_pkg::V_UNSTABLE_MIN_ADC;
+constexpr IData/*31:0*/ Vsc_dut_adapted_sc_include_pkg::V_UNSTABLE_MAX_ADC;
+constexpr IData/*31:0*/ Vsc_dut_adapted_sc_include_pkg::V_CRIT_HIGH_ADC;
 
 
 void Vsc_dut_adapted_sc_include_pkg___ctor_var_reset(Vsc_dut_adapted_sc_include_pkg* vlSelf);

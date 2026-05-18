@@ -116,18 +116,18 @@ Vsc_dut_adapted__Syms::Vsc_dut_adapted__Syms(VerilatedContext* contextp, const c
         __Vscope_sc_dut_adapted__u_top__u_grid.varInsert(__Vfinal,"battery_connected_q", &(TOP.sc_dut_adapted__DOT__u_top__DOT__u_grid__DOT__battery_connected_q), false, VLVT_UINT8,VLVD_NODIR|VLVF_PUB_RW,0);
         __Vscope_sc_dut_adapted__u_top__u_grid.varInsert(__Vfinal,"clk", &(TOP.sc_dut_adapted__DOT__u_top__DOT__u_grid__DOT__clk), false, VLVT_UINT8,VLVD_NODIR|VLVF_PUB_RW,0);
         __Vscope_sc_dut_adapted__u_top__u_grid.varInsert(__Vfinal,"data_valid", &(TOP.sc_dut_adapted__DOT__u_top__DOT__u_grid__DOT__data_valid), false, VLVT_UINT8,VLVD_NODIR|VLVF_PUB_RW,0);
-        __Vscope_sc_dut_adapted__u_top__u_grid.varInsert(__Vfinal,"debug_adc", &(TOP.sc_dut_adapted__DOT__u_top__DOT__u_grid__DOT__debug_adc), false, VLVT_UINT16,VLVD_NODIR|VLVF_PUB_RW,1 ,15,0);
-        __Vscope_sc_dut_adapted__u_top__u_grid.varInsert(__Vfinal,"debug_h0", &(TOP.sc_dut_adapted__DOT__u_top__DOT__u_grid__DOT__debug_h0), false, VLVT_UINT16,VLVD_NODIR|VLVF_PUB_RW,1 ,15,0);
-        __Vscope_sc_dut_adapted__u_top__u_grid.varInsert(__Vfinal,"debug_h1", &(TOP.sc_dut_adapted__DOT__u_top__DOT__u_grid__DOT__debug_h1), false, VLVT_UINT16,VLVD_NODIR|VLVF_PUB_RW,1 ,15,0);
-        __Vscope_sc_dut_adapted__u_top__u_grid.varInsert(__Vfinal,"debug_h2", &(TOP.sc_dut_adapted__DOT__u_top__DOT__u_grid__DOT__debug_h2), false, VLVT_UINT16,VLVD_NODIR|VLVF_PUB_RW,1 ,15,0);
-        __Vscope_sc_dut_adapted__u_top__u_grid.varInsert(__Vfinal,"debug_h3", &(TOP.sc_dut_adapted__DOT__u_top__DOT__u_grid__DOT__debug_h3), false, VLVT_UINT16,VLVD_NODIR|VLVF_PUB_RW,1 ,15,0);
-        __Vscope_sc_dut_adapted__u_top__u_grid.varInsert(__Vfinal,"debug_sum", &(TOP.sc_dut_adapted__DOT__u_top__DOT__u_grid__DOT__debug_sum), false, VLVT_UINT16,VLVD_NODIR|VLVF_PUB_RW,1 ,15,0);
-        __Vscope_sc_dut_adapted__u_top__u_grid.varInsert(__Vfinal,"filter_volt", &(TOP.sc_dut_adapted__DOT__u_top__DOT__u_grid__DOT__filter_volt), false, VLVT_UINT16,VLVD_NODIR|VLVF_PUB_RW,1 ,15,0);
+        __Vscope_sc_dut_adapted__u_top__u_grid.varInsert(__Vfinal,"debug_adc", &(TOP.sc_dut_adapted__DOT__u_top__DOT__u_grid__DOT__debug_adc), false, VLVT_UINT32,VLVD_NODIR|VLVF_PUB_RW,1 ,31,0);
+        __Vscope_sc_dut_adapted__u_top__u_grid.varInsert(__Vfinal,"debug_h0", &(TOP.sc_dut_adapted__DOT__u_top__DOT__u_grid__DOT__debug_h0), false, VLVT_UINT32,VLVD_NODIR|VLVF_PUB_RW,1 ,31,0);
+        __Vscope_sc_dut_adapted__u_top__u_grid.varInsert(__Vfinal,"debug_h1", &(TOP.sc_dut_adapted__DOT__u_top__DOT__u_grid__DOT__debug_h1), false, VLVT_UINT32,VLVD_NODIR|VLVF_PUB_RW,1 ,31,0);
+        __Vscope_sc_dut_adapted__u_top__u_grid.varInsert(__Vfinal,"debug_h2", &(TOP.sc_dut_adapted__DOT__u_top__DOT__u_grid__DOT__debug_h2), false, VLVT_UINT32,VLVD_NODIR|VLVF_PUB_RW,1 ,31,0);
+        __Vscope_sc_dut_adapted__u_top__u_grid.varInsert(__Vfinal,"debug_h3", &(TOP.sc_dut_adapted__DOT__u_top__DOT__u_grid__DOT__debug_h3), false, VLVT_UINT32,VLVD_NODIR|VLVF_PUB_RW,1 ,31,0);
+        __Vscope_sc_dut_adapted__u_top__u_grid.varInsert(__Vfinal,"debug_sum", &(TOP.sc_dut_adapted__DOT__u_top__DOT__u_grid__DOT__debug_sum), false, VLVT_UINT32,VLVD_NODIR|VLVF_PUB_RW,1 ,31,0);
+        __Vscope_sc_dut_adapted__u_top__u_grid.varInsert(__Vfinal,"filter_volt", &(TOP.sc_dut_adapted__DOT__u_top__DOT__u_grid__DOT__filter_volt), false, VLVT_UINT32,VLVD_NODIR|VLVF_PUB_RW,1 ,31,0);
         __Vscope_sc_dut_adapted__u_top__u_grid.varInsert(__Vfinal,"grid_state_enum", &(TOP.sc_dut_adapted__DOT__u_top__DOT__u_grid__DOT__grid_state_enum), false, VLVT_UINT8,VLVD_NODIR|VLVF_PUB_RW,1 ,1,0);
         __Vscope_sc_dut_adapted__u_top__u_grid.varInsert(__Vfinal,"reset_n", &(TOP.sc_dut_adapted__DOT__u_top__DOT__u_grid__DOT__reset_n), false, VLVT_UINT8,VLVD_NODIR|VLVF_PUB_RW,0);
         __Vscope_sc_dut_adapted__u_top__u_grid.varInsert(__Vfinal,"sample_count", &(TOP.sc_dut_adapted__DOT__u_top__DOT__u_grid__DOT__sample_count), false, VLVT_UINT8,VLVD_NODIR|VLVF_PUB_RW,1 ,2,0);
         __Vscope_sc_dut_adapted__u_top__u_grid.varInsert(__Vfinal,"sum_voltage", &(TOP.sc_dut_adapted__DOT__u_top__DOT__u_grid__DOT__sum_voltage), false, VLVT_UINT32,VLVD_NODIR|VLVF_PUB_RW,1 ,31,0);
-        __Vscope_sc_dut_adapted__u_top__u_grid.varInsert(__Vfinal,"voltage_history", &(TOP.sc_dut_adapted__DOT__u_top__DOT__u_grid__DOT__voltage_history), false, VLVT_UINT16,VLVD_NODIR|VLVF_PUB_RW,2 ,15,0 ,0,3);
+        __Vscope_sc_dut_adapted__u_top__u_grid.varInsert(__Vfinal,"voltage_history", &(TOP.sc_dut_adapted__DOT__u_top__DOT__u_grid__DOT__voltage_history), false, VLVT_UINT32,VLVD_NODIR|VLVF_PUB_RW,2 ,31,0 ,0,3);
         __Vscope_sc_dut_adapted__u_top__u_grid__unnamedblk1.varInsert(__Vfinal,"i", &(TOP.sc_dut_adapted__DOT__u_top__DOT__u_grid__DOT__unnamedblk1__DOT__i), false, VLVT_UINT32,VLVD_NODIR|VLVF_PUB_RW|VLVF_DPI_CLAY,1 ,31,0);
         __Vscope_sc_dut_adapted__u_top__u_grid__unnamedblk2.varInsert(__Vfinal,"i", &(TOP.sc_dut_adapted__DOT__u_top__DOT__u_grid__DOT__unnamedblk2__DOT__i), false, VLVT_UINT32,VLVD_NODIR|VLVF_PUB_RW|VLVF_DPI_CLAY,1 ,31,0);
         __Vscope_sc_dut_adapted__u_top__u_safety.varInsert(__Vfinal,"clk", &(TOP.sc_dut_adapted__DOT__u_top__DOT__u_safety__DOT__clk), false, VLVT_UINT8,VLVD_NODIR|VLVF_PUB_RW,0);
@@ -135,9 +135,9 @@ Vsc_dut_adapted__Syms::Vsc_dut_adapted__Syms(VerilatedContext* contextp, const c
         __Vscope_sc_dut_adapted__u_top__u_safety.varInsert(__Vfinal,"fault_flag_comb", &(TOP.sc_dut_adapted__DOT__u_top__DOT__u_safety__DOT__fault_flag_comb), false, VLVT_UINT8,VLVD_NODIR|VLVF_PUB_RW,0);
         __Vscope_sc_dut_adapted__u_top__u_safety.varInsert(__Vfinal,"grid_state_enum", &(TOP.sc_dut_adapted__DOT__u_top__DOT__u_safety__DOT__grid_state_enum), false, VLVT_UINT8,VLVD_NODIR|VLVF_PUB_RW,1 ,1,0);
         __Vscope_sc_dut_adapted__u_top__u_safety.varInsert(__Vfinal,"reset_n", &(TOP.sc_dut_adapted__DOT__u_top__DOT__u_safety__DOT__reset_n), false, VLVT_UINT8,VLVD_NODIR|VLVF_PUB_RW,0);
-        __Vscope_sc_include_pkg.varInsert(__Vfinal,"V_CRIT_HIGH_ADC", const_cast<void*>(static_cast<const void*>(&(TOP__sc_include_pkg.V_CRIT_HIGH_ADC))), true, VLVT_UINT16,VLVD_NODIR|VLVF_PUB_RW,1 ,15,0);
-        __Vscope_sc_include_pkg.varInsert(__Vfinal,"V_CRIT_LOW_ADC", const_cast<void*>(static_cast<const void*>(&(TOP__sc_include_pkg.V_CRIT_LOW_ADC))), true, VLVT_UINT16,VLVD_NODIR|VLVF_PUB_RW,1 ,15,0);
-        __Vscope_sc_include_pkg.varInsert(__Vfinal,"V_UNSTABLE_MAX_ADC", const_cast<void*>(static_cast<const void*>(&(TOP__sc_include_pkg.V_UNSTABLE_MAX_ADC))), true, VLVT_UINT16,VLVD_NODIR|VLVF_PUB_RW,1 ,15,0);
-        __Vscope_sc_include_pkg.varInsert(__Vfinal,"V_UNSTABLE_MIN_ADC", const_cast<void*>(static_cast<const void*>(&(TOP__sc_include_pkg.V_UNSTABLE_MIN_ADC))), true, VLVT_UINT16,VLVD_NODIR|VLVF_PUB_RW,1 ,15,0);
+        __Vscope_sc_include_pkg.varInsert(__Vfinal,"V_CRIT_HIGH_ADC", const_cast<void*>(static_cast<const void*>(&(TOP__sc_include_pkg.V_CRIT_HIGH_ADC))), true, VLVT_UINT32,VLVD_NODIR|VLVF_PUB_RW,1 ,31,0);
+        __Vscope_sc_include_pkg.varInsert(__Vfinal,"V_CRIT_LOW_ADC", const_cast<void*>(static_cast<const void*>(&(TOP__sc_include_pkg.V_CRIT_LOW_ADC))), true, VLVT_UINT32,VLVD_NODIR|VLVF_PUB_RW,1 ,31,0);
+        __Vscope_sc_include_pkg.varInsert(__Vfinal,"V_UNSTABLE_MAX_ADC", const_cast<void*>(static_cast<const void*>(&(TOP__sc_include_pkg.V_UNSTABLE_MAX_ADC))), true, VLVT_UINT32,VLVD_NODIR|VLVF_PUB_RW,1 ,31,0);
+        __Vscope_sc_include_pkg.varInsert(__Vfinal,"V_UNSTABLE_MIN_ADC", const_cast<void*>(static_cast<const void*>(&(TOP__sc_include_pkg.V_UNSTABLE_MIN_ADC))), true, VLVT_UINT32,VLVD_NODIR|VLVF_PUB_RW,1 ,31,0);
     }
 }

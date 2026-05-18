@@ -10,14 +10,14 @@ module sc_grid_monitor
 import sc_types_pkg::*;
 import sc_include_pkg::*;	//adc_constants
 
- logic [15:0] voltage_history [0:3];
+ logic [31:0] voltage_history [0:3];
 
 /* verilator lint_off UNUSEDSIGNAL */
  logic [31:0] sum_voltage;		//18 bits to avoid overflow
 /* verilator lint_on UNUSEDSIGNAL */
 
 
-logic [15:0] filter_volt;
+logic [31:0] filter_volt;
 
 grid_state_t grid_state_enum;
 
@@ -78,14 +78,14 @@ always_ff @(posedge clk or negedge reset_n) begin
 	// Shift register
         for(int i=3; i>0; i--) 
             voltage_history[i] <= voltage_history[i-1];
-        voltage_history[0] <= grid_bus.grid_voltage_adc;
+        voltage_history[0] <= {16'b0, grid_bus.grid_voltage_adc};	//16'b0 extend to 32 bits
         
         sum_voltage <= {16'b0, grid_bus.grid_voltage_adc} + 
-                      {16'b0, voltage_history[0]} + 
-                      {16'b0, voltage_history[1]} + 
-                      {16'b0, voltage_history[2]};
+                      voltage_history[0] + 
+                      voltage_history[1] + 
+                      voltage_history[2];
         
-        filter_volt <= sum_voltage[17:2];
+        filter_volt <= sum_voltage >> 2;
         
     end
 end
@@ -129,19 +129,19 @@ always_ff @(posedge clk or negedge reset_n) begin
 end
 
 // No grid_monitor, adicione sinais de debug
-logic [15:0] debug_sum;
-logic [15:0] debug_adc;
-logic [15:0] debug_h0, debug_h1, debug_h2, debug_h3;
+logic [31:0] debug_sum;
+logic [31:0] debug_adc;
+logic [31:0] debug_h0, debug_h1, debug_h2, debug_h3;
 
 //debug
 always_ff @(posedge clk) begin
     if(battery_connected_q && (sample_count > 2)) begin
-        debug_adc <= grid_bus.grid_voltage_adc;
+        debug_adc <= {16'b0, grid_bus.grid_voltage_adc};
         debug_h0 <= voltage_history[0];
         debug_h1 <= voltage_history[1];
         debug_h2 <= voltage_history[2];
         debug_h3 <= voltage_history[3];
-        debug_sum <= grid_bus.grid_voltage_adc + 
+        debug_sum <= {16'b0, grid_bus.grid_voltage_adc} + 
                     voltage_history[0] + 
                     voltage_history[1] + 
                     voltage_history[2];

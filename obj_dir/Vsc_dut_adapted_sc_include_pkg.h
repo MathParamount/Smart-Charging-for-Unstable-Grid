@@ -17,10 +17,10 @@ class alignas(VL_CACHE_LINE_BYTES) Vsc_dut_adapted_sc_include_pkg final : public
     Vsc_dut_adapted__Syms* const vlSymsp;
 
     // PARAMETERS
-    static constexpr SData/*15:0*/ V_CRIT_LOW_ADC = 0x4650U;
-    static constexpr SData/*15:0*/ V_UNSTABLE_MIN_ADC = 0x4e20U;
-    static constexpr SData/*15:0*/ V_UNSTABLE_MAX_ADC = 0xc350U;
-    static constexpr SData/*15:0*/ V_CRIT_HIGH_ADC = 0xea60U;
+    static constexpr IData/*31:0*/ V_CRIT_LOW_ADC = 0x0000a410U;
+    static constexpr IData/*31:0*/ V_UNSTABLE_MIN_ADC = 0x0000d2f0U;
+    static constexpr IData/*31:0*/ V_UNSTABLE_MAX_ADC = 0x000124f8U;
+    static constexpr IData/*31:0*/ V_CRIT_HIGH_ADC = 0x00013880U;
 
     // CONSTRUCTORS
     Vsc_dut_adapted_sc_include_pkg(Vsc_dut_adapted__Syms* symsp, const char* v__name);

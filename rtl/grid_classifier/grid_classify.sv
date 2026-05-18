@@ -11,14 +11,14 @@ module sc_safety_monitor
   input logic ml_predict_instability,
   
   //classification output
-  output logic [15:0] measured_voltage,
+  output logic [31:0] measured_voltage,
   output grid_state_t grid_state
 );
 
 import sc_types_pkg::*;
 
-logic [15:0] voltage_history [0:3];
-logic [15:0] filter_volt;
+logic [31:0] voltage_history [0:3];
+logic [31:0] filter_volt;
 
 // ----------Simple measure -------------
 	
