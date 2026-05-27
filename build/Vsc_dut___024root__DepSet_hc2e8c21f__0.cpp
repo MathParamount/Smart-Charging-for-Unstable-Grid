@@ -14,6 +14,7 @@ void Vsc_dut___024root___eval_ico(Vsc_dut___024root* vlSelf) {
     // Body
     if ((1ULL & vlSelf->__VicoTriggered.word(0U))) {
         Vsc_dut___024root___ico_sequent__TOP__0(vlSelf);
+        vlSelf->__Vm_traceActivity[1U] = 1U;
     }
 }
 
@@ -48,42 +49,18 @@ VL_INLINE_OPT void Vsc_dut___024root___nba_sequent__TOP__0(Vsc_dut___024root* vl
     if (VL_UNLIKELY(vlSelf->sc_dut__DOT__u_grid__DOT__battery_connected_q)) {
         VL_WRITEF("DEBUG: battery_connected_q = 1\n");
     }
-    if (VL_UNLIKELY(((IData)(vlSelf->sc_dut__DOT__u_grid__DOT__battery_connected_q) 
-                     & (2U < (IData)(vlSelf->sc_dut__DOT__u_grid__DOT__sample_count))))) {
-        VL_WRITEF("=== FILTER DEBUG ===\nADC_IN=%0#\nHIST[0]=%0#, HIST[1]=%0#, HIST[2]=%0#, HIST[3]=%0#\nSOMA (ADC+H0+H1+H2)=%0#\n",
-                  16,vlSelf->sc_dut__DOT__u_grid__DOT__debug_adc,
-                  16,(IData)(vlSelf->sc_dut__DOT__u_grid__DOT__debug_h0),
-                  16,vlSelf->sc_dut__DOT__u_grid__DOT__debug_h1,
-                  16,(IData)(vlSelf->sc_dut__DOT__u_grid__DOT__debug_h2),
-                  16,vlSelf->sc_dut__DOT__u_grid__DOT__debug_h3,
-                  16,(IData)(vlSelf->sc_dut__DOT__u_grid__DOT__debug_sum));
-        vlSelf->sc_dut__DOT__u_grid__DOT__debug_adc 
-            = vlSelf->grid_voltage_adc;
-        VL_WRITEF("FILTER (soma>>2)=%0#\n",16,(0xffffU 
-                                               & VL_SHIFTR_III(16,16,32, (IData)(vlSelf->sc_dut__DOT__u_grid__DOT__debug_sum), 2U)));
-        vlSelf->sc_dut__DOT__u_grid__DOT__debug_h0 
-            = vlSelf->sc_dut__DOT__u_grid__DOT__voltage_history
-            [0U];
-        vlSelf->sc_dut__DOT__u_grid__DOT__debug_h1 
-            = vlSelf->sc_dut__DOT__u_grid__DOT__voltage_history
-            [1U];
-        vlSelf->sc_dut__DOT__u_grid__DOT__debug_h2 
-            = vlSelf->sc_dut__DOT__u_grid__DOT__voltage_history
-            [2U];
-        vlSelf->sc_dut__DOT__u_grid__DOT__debug_h3 
-            = vlSelf->sc_dut__DOT__u_grid__DOT__voltage_history
-            [3U];
-        VL_WRITEF("filter_volt atual=%0#\ndata_valid=%0#, battery_connected_q=%0#\n",
-                  16,vlSelf->sc_dut__DOT__u_grid__DOT__filter_volt,
-                  1,(IData)(vlSelf->sc_dut__DOT__u_grid__DOT__data_valid),
-                  1,vlSelf->sc_dut__DOT__u_grid__DOT__battery_connected_q);
-        vlSelf->sc_dut__DOT__u_grid__DOT__debug_sum 
-            = (0xffffU & ((((IData)(vlSelf->grid_voltage_adc) 
-                            + vlSelf->sc_dut__DOT__u_grid__DOT__voltage_history
-                            [0U]) + vlSelf->sc_dut__DOT__u_grid__DOT__voltage_history
-                           [1U]) + vlSelf->sc_dut__DOT__u_grid__DOT__voltage_history
-                          [2U]));
-        VL_WRITEF("V_CRIT_LOW_ADC=18000, V_UNSTABLE_MIN_ADC=20000\n==================\n");
+    if (VL_UNLIKELY((((IData)(vlSelf->sc_dut__DOT__u_grid__DOT__battery_connected_q) 
+                      & (IData)(vlSelf->sc_dut__DOT__u_grid__DOT__data_valid)) 
+                     & (2U <= (IData)(vlSelf->sc_dut__DOT__u_grid__DOT__sample_count))))) {
+        VL_WRITEF("=== FILTER DEBUG ===\nADC_IN_ANCIENT=%0#\nHIST[0]=%0#, HIST[1]=%0#, HIST[2]=%0#, HIST[3]=%0#\nSOMA (ADC+H0+H1+H2)=%0#\nFILTER (soma>>2)=%0#\nfilter_volt atual=%0#\nsample_count=%0#\n==================\n",
+                  16,vlSelf->grid_voltage_adc,32,vlSelf->sc_dut__DOT__u_grid__DOT__voltage_history
+                  [0U],32,vlSelf->sc_dut__DOT__u_grid__DOT__voltage_history
+                  [1U],32,vlSelf->sc_dut__DOT__u_grid__DOT__voltage_history
+                  [2U],32,vlSelf->sc_dut__DOT__u_grid__DOT__voltage_history
+                  [3U],32,vlSelf->sc_dut__DOT__u_grid__DOT__sum_voltage,
+                  32,VL_SHIFTR_III(32,32,32, vlSelf->sc_dut__DOT__u_grid__DOT__sum_voltage, 2U),
+                  32,vlSelf->sc_dut__DOT__u_grid__DOT__filter_volt,
+                  3,(IData)(vlSelf->sc_dut__DOT__u_grid__DOT__sample_count));
     }
 }
 
@@ -96,7 +73,6 @@ void Vsc_dut___024root___eval_nba(Vsc_dut___024root* vlSelf) {
     // Body
     if ((2ULL & vlSelf->__VnbaTriggered.word(0U))) {
         Vsc_dut___024root___nba_sequent__TOP__0(vlSelf);
-        vlSelf->__Vm_traceActivity[1U] = 1U;
     }
     if ((1ULL & vlSelf->__VnbaTriggered.word(0U))) {
         Vsc_dut___024root___nba_sequent__TOP__1(vlSelf);

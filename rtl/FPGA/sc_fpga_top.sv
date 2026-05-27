@@ -146,9 +146,9 @@ output logic [3:0] led
 	assign led[0] = clk;
 	assign led[1] = grid_bus.battery_connected;
 	assign led[2] = fsm_bus.charge_enable;
-	assign led[4] = fsm_bus.battery_full;
-	assign led[5] = safety_bus.fault_flag;
-	assign led[6] = count;
-	assign led[7] = fsm_bus.current_state;
+	assign led[3] = fsm_bus.battery_full;
+	assign led[4] = safety_bus.fault_flag;
+	assign led[5] = count;
+	assign led[6] = fsm_bus.current_state;
 	
 endmodule

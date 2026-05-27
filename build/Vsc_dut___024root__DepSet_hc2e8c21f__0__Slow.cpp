@@ -82,6 +82,9 @@ VL_ATTR_COLD void Vsc_dut___024root___eval_stl(Vsc_dut___024root* vlSelf) {
     // Body
     if ((1ULL & vlSelf->__VstlTriggered.word(0U))) {
         Vsc_dut___024root___stl_sequent__TOP__0(vlSelf);
+        vlSelf->__Vm_traceActivity[2U] = 1U;
+        vlSelf->__Vm_traceActivity[1U] = 1U;
+        vlSelf->__Vm_traceActivity[0U] = 1U;
     }
 }
 
@@ -169,19 +172,14 @@ VL_ATTR_COLD void Vsc_dut___024root___ctor_var_reset(Vsc_dut___024root* vlSelf) 
     vlSelf->current_state = VL_RAND_RESET_I(3);
     vlSelf->fault_code = VL_RAND_RESET_I(2);
     for (int __Vi0 = 0; __Vi0 < 4; ++__Vi0) {
-        vlSelf->sc_dut__DOT__u_grid__DOT__voltage_history[__Vi0] = VL_RAND_RESET_I(16);
+        vlSelf->sc_dut__DOT__u_grid__DOT__voltage_history[__Vi0] = VL_RAND_RESET_I(32);
     }
     vlSelf->sc_dut__DOT__u_grid__DOT__sum_voltage = VL_RAND_RESET_I(32);
-    vlSelf->sc_dut__DOT__u_grid__DOT__filter_volt = VL_RAND_RESET_I(16);
+    vlSelf->sc_dut__DOT__u_grid__DOT__filter_volt = VL_RAND_RESET_I(32);
+    vlSelf->sc_dut__DOT__u_grid__DOT__grid_state_enum = VL_RAND_RESET_I(2);
     vlSelf->sc_dut__DOT__u_grid__DOT__sample_count = VL_RAND_RESET_I(3);
     vlSelf->sc_dut__DOT__u_grid__DOT__data_valid = VL_RAND_RESET_I(1);
     vlSelf->sc_dut__DOT__u_grid__DOT__battery_connected_q = VL_RAND_RESET_I(1);
-    vlSelf->sc_dut__DOT__u_grid__DOT__debug_sum = VL_RAND_RESET_I(16);
-    vlSelf->sc_dut__DOT__u_grid__DOT__debug_adc = VL_RAND_RESET_I(16);
-    vlSelf->sc_dut__DOT__u_grid__DOT__debug_h0 = VL_RAND_RESET_I(16);
-    vlSelf->sc_dut__DOT__u_grid__DOT__debug_h1 = VL_RAND_RESET_I(16);
-    vlSelf->sc_dut__DOT__u_grid__DOT__debug_h2 = VL_RAND_RESET_I(16);
-    vlSelf->sc_dut__DOT__u_grid__DOT__debug_h3 = VL_RAND_RESET_I(16);
     vlSelf->sc_dut__DOT__u_grid__DOT__unnamedblk2__DOT__i = 0;
     vlSelf->sc_dut__DOT__u_grid__DOT__unnamedblk1__DOT__i = 0;
     vlSelf->sc_dut__DOT__u_fsm__DOT__next_state = VL_RAND_RESET_I(3);

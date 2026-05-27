@@ -17,21 +17,22 @@ output [2:0] current_state,
 output logic [1:0] fault_code,
 output logic [1:0] grid_state
 );
-	sc_interface_if sc_interface_bus_t();
+   
+    sc_interface_if sc_interface_bus_t();
 	//state_t current_state;
 	
-	//Connect top signals interface
-    	
+    //Connect top signals interface	
     assign sc_interface_bus_t.battery_full = battery_full;
-
+    
     assign sc_interface_bus_t.grid_voltage_adc = grid_voltage_adc;
+    
 		
-	//assign sc_interface_bus_t.grid_current_sensor = grid_current_sensor;
-	assign sc_interface_bus_t.battery_connected = battery_connected;
-	assign sc_interface_bus_t.ml_predict_instability = ml_predict_instability;
+    //assign sc_interface_bus_t.grid_current_sensor = grid_current_sensor;
+    assign sc_interface_bus_t.battery_connected = battery_connected;
+    assign sc_interface_bus_t.ml_predict_instability = ml_predict_instability;
     	
     //The output of the top come from interface
-	assign charge_enable = sc_interface_bus_t.charge_enable;
+    assign charge_enable = sc_interface_bus_t.charge_enable;
     assign fault_flag = sc_interface_bus_t.fault_flag;
     	
     assign fault_code = sc_interface_bus_t.fault_code;
@@ -39,7 +40,7 @@ output logic [1:0] grid_state
     assign current_state = sc_interface_bus_t.current_state;
     	
     assign grid_state = sc_interface_bus_t.grid_state;  // read from interface
-	
+
 	sc_grid_monitor u_grid (
         .clk(clk),
         .reset_n(reset_n),
@@ -65,12 +66,14 @@ output logic [1:0] grid_state
 	
 	//debug
 	always_ff @(posedge clk) begin
-        $display("TOP: fault_flag=%d, state=%s, charge=%d", 
+	$display("\nSc_top:");
+        $display("TOP: fault_flag=%d, state=%s, charge=%d, grid_voltage_adc=%f", 
                  sc_interface_bus_t.fault_flag,
                  sc_interface_bus_t.current_state.name(),
-                 sc_interface_bus_t.charge_enable);
+                 sc_interface_bus_t.charge_enable,
+                 sc_interface_bus_t.grid_voltage_adc);
 	
-		$display("TOP: reset_n=1, batt_conn=%0d, data_valid=%0d", 
+		$display("\nTOP: reset_n=1, batt_conn=%0d, data_valid=%0d", 
                  sc_interface_bus_t.battery_connected,
                  sc_interface_bus_t.data_valid);
     	end

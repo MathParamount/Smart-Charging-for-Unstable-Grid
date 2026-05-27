@@ -1,3 +1,4 @@
+#include <iostream>
 #include "verilated.h"
 #include "Vsc_dut_adapted.h"
 
@@ -22,7 +23,6 @@ struct SimulationState {
 
 
 static VerilatedContext* contextp = NULL;
-
 static Vsc_dut_adapted* dut = NULL;
 static vluint64_t last_time_ps = 0;
 
@@ -33,7 +33,37 @@ static vluint64_t last_time_ps = 0;
 #endif
 
 
-extern "C" {
+const double CLOCK_PERIOD_S = 100e-6;     // 100µs (10 kHz)
+const double CLOCK_HALF_PERIOD_S = 50e-6;
+const double PLECS_STEP_S = 500e-6;       // 500µs (2 kHz sampling)
+const int CYCLES_PER_PLECS_STEP = 5;      // 5 * 100µs = 500µs EXATO		
+
+//prototype
+void set_voltage_dut(Vsc_dut_adapted* dut, double V_rms);
+
+void set_voltage_dut(Vsc_dut_adapted* dut, double V_rms)
+{
+    const double V_MAX_RMS = 180.0;
+
+    if (V_rms < 0) V_rms = 0;
+
+	 double v_peak = V_rms * 1.414;
+    int adc_value = (int)((v_peak * 65535.0) / V_MAX_RMS);
+    
+    if (adc_value < 0) adc_value = 0;
+    if (adc_value > 65535) adc_value = 65535;
+    
+    dut->grid_voltage_adc = adc_value;
+
+	 static int debug_count = 0;
+    if (debug_count++ % 100 == 0) {
+        printf("set_voltage: V_rms=%.2f, ADC=%d\n", V_rms, adc_value);
+    }
+}
+
+
+extern "C" 
+{
 	DLLEXPORT void plecsSetSizes(struct SimulationSizes* aSizes) 
 	{
 	aSizes->numInputs = 1;
@@ -42,95 +72,130 @@ extern "C" {
 	aSizes->numParameters = 0;
 	}
 
-	const double PLECS_STEP_TIME_S = 0.001;  // 1ms by step
-	const double CLOCK_PERIOD_S = 166.666e-9;  // 166.666μs = 6kHz
-	const int CYCLES_PER_PLECS_STEP = (int)(PLECS_STEP_TIME_S / CLOCK_PERIOD_S);
-
-	const vluint64_t CLOCK_HALF_PERIOD_NS = 83;  // 83.333 us = 12 kHz 
-
 	DLLEXPORT void plecsStart(struct SimulationState* aState)
 	{    
 		  //Context
         contextp = new VerilatedContext;
 		  contextp->traceEverOn(true);
         
-        // Create DUT
+        // create DUT
         dut = new Vsc_dut_adapted(contextp, "dut");
-        
-		  dut->reset_n = 0;
 		   
-   	  const int RESET_CYCLES = 10;
+   	  const int RESET_CYCLES = 5;		//same from testbench
 
-		  for(int i = 0; i < RESET_CYCLES; i++) {
+    	  // aplly reset
+    	  dut->reset_n = 0;
+		  dut->battery_connected = 0;
+    	  dut->charge_enable = 0;
+    	  dut->grid_voltage_adc = 0;
+  		  dut->ml_predict_instability = 0;
+    
+    	  // Executing clock cycles
+    	  for (int i = 0; i < RESET_CYCLES; i++) {
+         dut->clk = 0;
+         contextp->timeInc(CLOCK_HALF_PERIOD_S);
+         dut->eval();
+        
+         dut->clk = 1;
+         contextp->timeInc(CLOCK_HALF_PERIOD_S);
+         dut->eval();
+    	 }
+    
+    	  // release reset
+    	  dut->reset_n = 1;
+
+    	 // MOre a cycle to stablish
+		 for (int i = 0; i < 5; i++)
+		 {
+    	 dut->clk = 0;
+    	 contextp->timeInc(CLOCK_HALF_PERIOD_S);
+    	 dut->eval();
+    
+    	 dut->clk = 1;
+    	 contextp->timeInc(CLOCK_HALF_PERIOD_S);
+    	 dut->eval();
+		 }
+
+    	 dut->battery_connected = 1;
+    
+    	 // Initial voltage (127V RMS)
+    	 set_voltage_dut(dut, 127.0);
+
+		 for (int i = 0; i < 20; i++) {
         dut->clk = 0;
-    	  contextp->timeInc(CLOCK_HALF_PERIOD_NS);
+        contextp->timeInc(CLOCK_HALF_PERIOD_S);
         dut->eval();
         
         dut->clk = 1;
-   	  contextp->timeInc(CLOCK_HALF_PERIOD_NS);
+        contextp->timeInc(CLOCK_HALF_PERIOD_S);
         dut->eval();
-   	  }		
+    	  }
 
-		  // release reset
-		  dut->reset_n = 1;	  
-	 	  dut->eval();
-
-		  dut->clk = 0;
-    	  contextp->timeInc(CLOCK_HALF_PERIOD_NS);
-    	  dut->eval();
-    
-   	  dut->clk = 1;
-    	  contextp->timeInc(CLOCK_HALF_PERIOD_NS);
-    	  dut->eval();
-    
-    	  // Initialized the DUT
-    	  dut->grid_voltage_adc = 0;
-        dut->battery_connected = 1;
-    	  dut->charge_enable = 0;
-	}
-
+	 	 //debug
+    	 printf("=== DUT Initialized ===\n");
+    	 printf("Initial state: %d\n", dut->current_state);
+    	 printf("Clock period: %.2f us\n", CLOCK_PERIOD_S * 1e6);
+		 printf("PLECS step: %.2f us\n", PLECS_STEP_S * 1e6);
+   	 printf("Cycles per PLECS step: %d\n", CYCLES_PER_PLECS_STEP);
+   }
+	
+	
 	DLLEXPORT void plecsOutput(struct SimulationState* aState)
 	{
-	    if (!dut || !aState) return;
+		  if (!dut || !contextp || !aState) {
+            printf("plecsOutput: invalid state\n");
+            return;
+        }
 
-		 // Read analog input
-    	 double volt_peak = aState->inputs[0];
-    
-    	 // COnvert  to adc
-    	 const double V_MAX_PEAK = 180.0;
-    	 int adc_value = (int)((volt_peak / V_MAX_PEAK) * 65535.0);
-   	  if (adc_value < 0) adc_value = 0;
-    	 if (adc_value > 65535) adc_value = 65535;
-    
-    	 // Apply the DUT
-    	 dut->grid_voltage_adc = adc_value;
-    	 dut->battery_connected = 1;
-    
+		 
+		  //debug: meeting in PLECS
+		  static int call_count = 0;
+        call_count++;
+        
+        if (call_count % 100 == 0) {
+            printf("plecsOutput #%d: time=%.6f, input[0]=%.6f\n", 
+                   call_count, aState->time, aState->inputs[0]);
+        }
+
+	    // RMS voltage from PLECS (input)
+    	 double grid_voltage_rms = aState->inputs[0];
+    	 
+		 //Applying testbench voltage
+		 set_voltage_dut(dut, grid_voltage_rms);
+
     	 // Execute clock cycles
     	 for (int i = 0; i < CYCLES_PER_PLECS_STEP; i++) {
         dut->clk = 0;
+		  contextp->timeInc(CLOCK_HALF_PERIOD_S);
         dut->eval();
+
         dut->clk = 1;
+		  contextp->timeInc(CLOCK_HALF_PERIOD_S);
         dut->eval();
     	 }
-    
-    	 // Send data to PLECS
+    	 
     	 aState->outputs[0] = dut->charge_enable;
-    	 aState->outputs[1] = (double)adc_value;
-    
-    	 // Debug (opcional)
+   	 aState->outputs[1] = (double)dut->current_state;
+
+    	 // Debug
     	 static int count = 0;
-    	 if (count++ % 1000 == 0) {
-        printf("Vin=%.1fV, ADC=%d, Charge=%.0f\n", 
-               volt_peak, adc_value, dut->charge_enable);
-    	 }
- 		 
+    	 if (count++ % 100 == 0) {
+        printf("PLECS Step: V_rms=%.1fV, ADC=%d, State=%d, Charge=%d\n",grid_voltage_rms, dut->grid_voltage_adc, dut->current_state, dut->charge_enable);
+       }		 
 	}
 
-	DLLEXPORT void plecsTerminate(struct SimulationState* aState)
-	{
-    delete dut;
-    delete contextp;
-    printf("DLL finalized\n");
-	}
+DLLEXPORT void plecsEnd(struct SimulationState* aState)
+{
+	 printf("plecsTerminate called\n");
+
+    if (dut) {
+        delete dut;
+        dut = NULL;
+    }
+    if (contextp) {
+        delete contextp;
+        contextp = NULL;
+    }
+}
+
 }

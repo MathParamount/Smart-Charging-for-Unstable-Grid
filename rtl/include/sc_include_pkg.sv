@@ -7,10 +7,12 @@ package sc_include_pkg;
  
 //reference voltage (pike) = 180 V
 
-parameter logic [31:0] V_CRIT_LOW_ADC     = 42000;  // < ~115.35V
-parameter logic [31:0] V_UNSTABLE_MIN_ADC = 54000;  // ~148.31V
-parameter logic [31:0] V_UNSTABLE_MAX_ADC = 75000;  // ~206V
-parameter logic [31:0] V_CRIT_HIGH_ADC    = 80000;  // > ~220V
+parameter logic [31:0] V_CRIT_LOW_ADC     = 42000;  // < ~115V RMS
+parameter logic [31:0] V_UNSTABLE_MIN_ADC = 54000;  // ~148V RMS
+parameter logic [31:0] V_UNSTABLE_MAX_ADC = 75000;  // ~206V RMS
+parameter logic [31:0] V_CRIT_HIGH_ADC    = 80000;  // > ~220V RMS
+
+//normal -> above 54000 and below 75000
  
  //obs: 1 LSB = 1mA.
 

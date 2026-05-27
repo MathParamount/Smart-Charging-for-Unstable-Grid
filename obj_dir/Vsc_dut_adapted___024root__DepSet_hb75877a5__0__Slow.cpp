@@ -205,12 +205,6 @@ VL_ATTR_COLD void Vsc_dut_adapted___024root___ctor_var_reset(Vsc_dut_adapted___0
     vlSelf->sc_dut_adapted__DOT__u_top__DOT__u_grid__DOT__sample_count = VL_RAND_RESET_I(3);
     vlSelf->sc_dut_adapted__DOT__u_top__DOT__u_grid__DOT__data_valid = VL_RAND_RESET_I(1);
     vlSelf->sc_dut_adapted__DOT__u_top__DOT__u_grid__DOT__battery_connected_q = VL_RAND_RESET_I(1);
-    vlSelf->sc_dut_adapted__DOT__u_top__DOT__u_grid__DOT__debug_sum = VL_RAND_RESET_I(32);
-    vlSelf->sc_dut_adapted__DOT__u_top__DOT__u_grid__DOT__debug_adc = VL_RAND_RESET_I(32);
-    vlSelf->sc_dut_adapted__DOT__u_top__DOT__u_grid__DOT__debug_h0 = VL_RAND_RESET_I(32);
-    vlSelf->sc_dut_adapted__DOT__u_top__DOT__u_grid__DOT__debug_h1 = VL_RAND_RESET_I(32);
-    vlSelf->sc_dut_adapted__DOT__u_top__DOT__u_grid__DOT__debug_h2 = VL_RAND_RESET_I(32);
-    vlSelf->sc_dut_adapted__DOT__u_top__DOT__u_grid__DOT__debug_h3 = VL_RAND_RESET_I(32);
     vlSelf->sc_dut_adapted__DOT__u_top__DOT__u_grid__DOT__unnamedblk2__DOT__i = 0;
     vlSelf->sc_dut_adapted__DOT__u_top__DOT__u_grid__DOT__unnamedblk1__DOT__i = 0;
     vlSelf->sc_dut_adapted__DOT__u_top__DOT__u_fsm__DOT__clk = VL_RAND_RESET_I(1);

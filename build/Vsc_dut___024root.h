@@ -28,6 +28,7 @@ class alignas(VL_CACHE_LINE_BYTES) Vsc_dut___024root final : public VerilatedMod
     VL_OUT8(fault_flag,0,0);
     VL_OUT8(current_state,2,0);
     VL_OUT8(fault_code,1,0);
+    CData/*1:0*/ sc_dut__DOT__u_grid__DOT__grid_state_enum;
     CData/*2:0*/ sc_dut__DOT__u_grid__DOT__sample_count;
     CData/*0:0*/ sc_dut__DOT__u_grid__DOT__data_valid;
     CData/*0:0*/ sc_dut__DOT__u_grid__DOT__battery_connected_q;
@@ -46,18 +47,12 @@ class alignas(VL_CACHE_LINE_BYTES) Vsc_dut___024root final : public VerilatedMod
     CData/*0:0*/ __Vtrigprevexpr___TOP__reset_n__0;
     CData/*0:0*/ __VactContinue;
     VL_IN16(grid_voltage_adc,15,0);
-    SData/*15:0*/ sc_dut__DOT__u_grid__DOT__filter_volt;
-    SData/*15:0*/ sc_dut__DOT__u_grid__DOT__debug_sum;
-    SData/*15:0*/ sc_dut__DOT__u_grid__DOT__debug_adc;
-    SData/*15:0*/ sc_dut__DOT__u_grid__DOT__debug_h0;
-    SData/*15:0*/ sc_dut__DOT__u_grid__DOT__debug_h1;
-    SData/*15:0*/ sc_dut__DOT__u_grid__DOT__debug_h2;
-    SData/*15:0*/ sc_dut__DOT__u_grid__DOT__debug_h3;
     IData/*31:0*/ sc_dut__DOT__u_grid__DOT__sum_voltage;
+    IData/*31:0*/ sc_dut__DOT__u_grid__DOT__filter_volt;
     IData/*31:0*/ sc_dut__DOT__u_grid__DOT__unnamedblk2__DOT__i;
     IData/*31:0*/ sc_dut__DOT__u_grid__DOT__unnamedblk1__DOT__i;
     IData/*31:0*/ __VactIterCount;
-    VlUnpacked<SData/*15:0*/, 4> sc_dut__DOT__u_grid__DOT__voltage_history;
+    VlUnpacked<IData/*31:0*/, 4> sc_dut__DOT__u_grid__DOT__voltage_history;
     VlUnpacked<CData/*0:0*/, 3> __Vm_traceActivity;
     VlTriggerVec<1> __VstlTriggered;
     VlTriggerVec<1> __VicoTriggered;

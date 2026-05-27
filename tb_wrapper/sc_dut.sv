@@ -9,7 +9,7 @@ module sc_dut
   input logic battery_connected,
   input logic battery_full,
   input logic ml_predict_instability,
-  input logic [15:0] grid_voltage_adc,
+  input wire [15:0] grid_voltage_adc,
   //input logic [15:0] grid_current_sensor,
 
   output logic charge_enable,
@@ -22,6 +22,21 @@ module sc_dut
   
   //unical interface to fsm and safety
   sc_interface_if sc_interf_bus();
+  
+  assign sc_interf_bus.grid_voltage_adc = grid_voltage_adc;
+  
+  sc_dut u_sc_dut (
+     .clk(clk),
+     .reset_n(reset_n),
+     .battery_connected(battery_connected),
+     .battery_full(battery_full),
+     .ml_predict_instability(ml_predict_instability),
+     .grid_voltage_adc(voltage_value),
+     .charge_enable(charge_enable),
+     .fault_flag(fault_flag),
+     .current_state(current_state),
+     .fault_code(fault_code)
+  );
   
   sc_grid_monitor u_grid 
   (
@@ -47,6 +62,7 @@ module sc_dut
     .grid_bus(sc_interf_bus.grid_monitor)
   );
   
+  
   //join the interface with DUT
   assign charge_enable = sc_interf_bus.charge_enable;
   assign fault_flag = sc_interf_bus.fault_flag;
@@ -57,7 +73,6 @@ module sc_dut
   //attach external input on interface
   assign sc_interf_bus.battery_full = battery_full;
   
-  assign sc_interf_bus.grid_voltage_adc = grid_voltage_adc;
   //assign sc_interf_bus.grid_current_sensor = grid_current_sensor;
   assign sc_interf_bus.battery_connected = battery_connected;
   assign sc_interf_bus.ml_predict_instability = ml_predict_instability;

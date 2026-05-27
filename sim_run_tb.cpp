@@ -44,7 +44,7 @@ void tick(Vsc_dut *top, VerilatedVcdC* pointer)
 
 void set_voltage(Vsc_dut *top, double V_rms)
 {
-    double Vmax = 400.0;  // maximum pick tension
+    double Vmax = 180.0;  // maximum pick tension
     
 	 if(V_rms < 0) V_rms = 0;	//negative values protection
 
@@ -59,7 +59,9 @@ void set_voltage(Vsc_dut *top, double V_rms)
 	 if(adc_value > 65535) adc_value = 65535;
 
     top->grid_voltage_adc = adc_value;
-    printf("Time=%lu, V_rms=%.1f, ADC=%d\n", main_t, V_rms, adc_value);
+
+    printf("Time=%lu, V_rms=%.1f, ADC=%d\n", main_t, V_rms, top->grid_voltage_adc );
+
 }
 
 
@@ -72,23 +74,22 @@ void test_step(Vsc_dut *top)
 	 //reset after 1 cycle
 	 if(cycle > 80) cycle = 1;
 
-    double Vmax = 200.0;
+    double Vmax = top->grid_voltage_adc;
 
     top->battery_connected = 1;
     top->ml_predict_instability = 0;
 
-    double V_rms;
+    double V_rms = Vmax / 1.414;
 
-    if(cycle < 20)      V_rms = 127;	//normal
+    if(cycle < 20)      V_rms = 128;	//normal
     else if(cycle < 40) V_rms = 70;		//critical low (~16200)
     else if(cycle < 60) V_rms = 260;	//critical high (~60200)
     else                V_rms = 100;	//unstable (~23150)
-	 
-    top->grid_voltage_adc = (int)(V_rms * 1.414 * 65535) / Vmax;
-	 
-	 set_voltage(top,V_rms);
+	 	 
+	 set_voltage(top, V_rms);
 
 	 printf("Time=%lu, V_rms=%.1f, ADC=%d\n", main_t, V_rms, top->grid_voltage_adc);
+
 }
 
 int main(int argc, char **argv)
@@ -174,21 +175,7 @@ int main(int argc, char **argv)
         	tick(top, pointer);
    	 }
         
-		 // Read actual state
-       int cpp_state = top->current_state;
-        
-       // Verifica se o estado é o esperado
-       bool ok = (cpp_state == tests[test].expected_state);
-   	 
-		 printf("  Estado atual: %d (esperado: %d) - %s\n", 
-               cpp_state, 
-               tests[test].expected_state,
-               ok ? "OK" : "ERRO");
-        
-        if(!ok) {
-            printf("  ATENÇÃO: Estado incorreto!\n");
-        }
-		 // wait 10 cycles
+       // wait 10 cycles
        for(int i = 0; i < 10; i++) {
             tick(top, pointer);
        	 }

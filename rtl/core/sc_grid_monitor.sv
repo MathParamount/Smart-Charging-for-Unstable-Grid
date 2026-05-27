@@ -37,7 +37,8 @@ always_ff @(posedge clk or negedge reset_n) begin
         data_valid <= 0;
     end else begin
       if(battery_connected_q) begin
-        if(sample_count < 4) begin		//wait 4 cycle to data_valid
+        if(sample_count < 4) begin	$display("data_valid=%0d, battery_connected_q=%0d, grid_voltage_adc=%0d", 
+         data_valid, battery_connected_q, grid_bus.grid_voltage_adc);	//wait 4 cycle to data_valid
             sample_count <= sample_count + 1;
             data_valid <= (sample_count == 3);		//active 3 cycle
         end
@@ -70,23 +71,23 @@ end
 always_ff @(posedge clk or negedge reset_n) begin
     if(!reset_n) begin
         for(int i=0; i<4; i++) voltage_history[i] <= 0;
-        
+
         filter_volt <= 0;
     end
     else if(battery_connected_q) begin
 	
 	// Shift register
         for(int i=3; i>0; i--) 
-            voltage_history[i] <= voltage_history[i-1];
-        voltage_history[0] <= {16'b0, grid_bus.grid_voltage_adc};	//16'b0 extend to 32 bits
-        
-        sum_voltage <= {16'b0, grid_bus.grid_voltage_adc} + 
+        	voltage_history[i] <= voltage_history[i-1];
+        	voltage_history[0] <= {16'b0, grid_bus.grid_voltage_adc};	//16'b0 extend to 32 bits
+        if(sample_count >= 2) begin
+           sum_voltage <= {16'b0, grid_bus.grid_voltage_adc} + 
                       voltage_history[0] + 
                       voltage_history[1] + 
                       voltage_history[2];
         
-        filter_volt <= sum_voltage >> 2;
-        
+           filter_volt <= sum_voltage >> 2;
+        end
     end
 end
 
@@ -104,9 +105,13 @@ always_comb begin
              filter_volt > V_UNSTABLE_MAX_ADC) begin
            grid_state_enum = GRID_UNSTABLE;
           end
-    else begin
+    else if (filter_volt > V_UNSTABLE_MIN_ADC && filter_volt < V_UNSTABLE_MAX_ADC)
+    begin
            grid_state_enum = GRID_NORMAL;
-    	end
+    end
+    else begin
+    	  grid_state_enum = GRID_CRITICAL;
+    end
 end
 
 /*
@@ -124,39 +129,25 @@ always_ff @(posedge clk or negedge reset_n) begin
         grid_bus.grid_state <= GRID_NORMAL;
     end
     else begin
-        grid_bus.grid_state <= grid_state_enum;
+    	 
+    	if(grid_state_enum inside {GRID_NORMAL, GRID_UNSTABLE, GRID_CRITICAL}) grid_bus.grid_state <= grid_state_enum;
+    	else
+    	    grid_bus.grid_state <= GRID_NORMAL;
     end
 end
 
-// No grid_monitor, adicione sinais de debug
-logic [31:0] debug_sum;
-logic [31:0] debug_adc;
-logic [31:0] debug_h0, debug_h1, debug_h2, debug_h3;
-
 //debug
 always_ff @(posedge clk) begin
-    if(battery_connected_q && (sample_count > 2)) begin
-        debug_adc <= {16'b0, grid_bus.grid_voltage_adc};
-        debug_h0 <= voltage_history[0];
-        debug_h1 <= voltage_history[1];
-        debug_h2 <= voltage_history[2];
-        debug_h3 <= voltage_history[3];
-        debug_sum <= {16'b0, grid_bus.grid_voltage_adc} + 
-                    voltage_history[0] + 
-                    voltage_history[1] + 
-                    voltage_history[2];
-        
+    if(battery_connected_q &&  data_valid && (sample_count >= 2)) begin
         $display("=== FILTER DEBUG ===");
-        $display("ADC_IN=%0d", debug_adc);
+        $display("ADC_IN=%0d", grid_bus.grid_voltage_adc);
         $display("HIST[0]=%0d, HIST[1]=%0d, HIST[2]=%0d, HIST[3]=%0d", 
-                 debug_h0, debug_h1, debug_h2, debug_h3);
-        $display("SOMA (ADC+H0+H1+H2)=%0d", debug_sum);
-        $display("FILTER (soma>>2)=%0d", debug_sum >> 2);
+                 voltage_history[0], voltage_history[1], 
+                 voltage_history[2], voltage_history[3]);
+        $display("SOMA (ADC+H0+H1+H2)=%0d", sum_voltage);
+        $display("FILTER (soma>>2)=%0d", sum_voltage >> 2);
         $display("filter_volt atual=%0d", filter_volt);
-        $display("data_valid=%0d, battery_connected_q=%0d", 
-                 data_valid, battery_connected_q);
-        $display("V_CRIT_LOW_ADC=%0d, V_UNSTABLE_MIN_ADC=%0d", 
-                 V_CRIT_LOW_ADC, V_UNSTABLE_MIN_ADC);
+        $display("sample_count=%0d", sample_count);
         $display("==================");
     end
 end

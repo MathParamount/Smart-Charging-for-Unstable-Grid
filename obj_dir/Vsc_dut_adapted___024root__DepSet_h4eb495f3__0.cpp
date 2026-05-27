@@ -97,7 +97,9 @@ VL_INLINE_OPT void Vsc_dut_adapted___024root___ico_sequent__TOP__0(Vsc_dut_adapt
                 | (IData)(vlSymsp->TOP__sc_dut_adapted__DOT__u_top__DOT__sc_interface_bus_t.ml_predict_instability))
                 ? 2U : (((0xd2f0U > vlSelf->sc_dut_adapted__DOT__u_top__DOT__u_grid__DOT__filter_volt) 
                          | (0x124f8U < vlSelf->sc_dut_adapted__DOT__u_top__DOT__u_grid__DOT__filter_volt))
-                         ? 1U : 0U)) : 0U);
+                         ? 1U : (((0xd2f0U < vlSelf->sc_dut_adapted__DOT__u_top__DOT__u_grid__DOT__filter_volt) 
+                                  & (0x124f8U > vlSelf->sc_dut_adapted__DOT__u_top__DOT__u_grid__DOT__filter_volt))
+                                  ? 0U : 2U))) : 0U);
     vlSelf->sc_dut_adapted__DOT__fault_flag = vlSymsp->TOP__sc_dut_adapted__DOT__sc_interf_bus.fault_flag;
     vlSelf->sc_dut_adapted__DOT__fault_code = vlSymsp->TOP__sc_dut_adapted__DOT__sc_interf_bus.fault_code;
     vlSelf->sc_dut_adapted__DOT__current_state = vlSymsp->TOP__sc_dut_adapted__DOT__sc_interf_bus.current_state;
@@ -317,48 +319,28 @@ VL_INLINE_OPT void Vsc_dut_adapted___024root___nba_sequent__TOP__0(Vsc_dut_adapt
     if (VL_UNLIKELY(vlSelf->sc_dut_adapted__DOT__u_top__DOT__u_grid__DOT__battery_connected_q)) {
         VL_WRITEF("DEBUG: battery_connected_q = 1\n");
     }
+    VL_WRITEF("\nSc_top:\n");
     __Vtemp_1 = Vsc_dut_adapted___024unit::__Venumtab_enum_name1
         [vlSymsp->TOP__sc_dut_adapted__DOT__u_top__DOT__sc_interface_bus_t.current_state];
-    VL_WRITEF("TOP: fault_flag=%1#, state=%@, charge=%1#\nTOP: reset_n=1, batt_conn=%0#, data_valid=%0#\n",
+    VL_WRITEF("TOP: fault_flag=%1#, state=%@, charge=%1#, grid_voltage_adc=%f\n\nTOP: reset_n=1, batt_conn=%0#, data_valid=%0#\n",
               1,vlSymsp->TOP__sc_dut_adapted__DOT__u_top__DOT__sc_interface_bus_t.fault_flag,
               -1,&(__Vtemp_1),1,(IData)(vlSymsp->TOP__sc_dut_adapted__DOT__u_top__DOT__sc_interface_bus_t.charge_enable),
-              1,vlSymsp->TOP__sc_dut_adapted__DOT__u_top__DOT__sc_interface_bus_t.battery_connected,
-              1,(IData)(vlSymsp->TOP__sc_dut_adapted__DOT__u_top__DOT__sc_interface_bus_t.data_valid));
-    if (VL_UNLIKELY(((IData)(vlSelf->sc_dut_adapted__DOT__u_top__DOT__u_grid__DOT__battery_connected_q) 
-                     & (2U < (IData)(vlSelf->sc_dut_adapted__DOT__u_top__DOT__u_grid__DOT__sample_count))))) {
-        VL_WRITEF("=== FILTER DEBUG ===\nADC_IN=%0#\nHIST[0]=%0#, HIST[1]=%0#, HIST[2]=%0#, HIST[3]=%0#\nSOMA (ADC+H0+H1+H2)=%0#\n",
-                  32,vlSelf->sc_dut_adapted__DOT__u_top__DOT__u_grid__DOT__debug_adc,
-                  32,vlSelf->sc_dut_adapted__DOT__u_top__DOT__u_grid__DOT__debug_h0,
-                  32,vlSelf->sc_dut_adapted__DOT__u_top__DOT__u_grid__DOT__debug_h1,
-                  32,vlSelf->sc_dut_adapted__DOT__u_top__DOT__u_grid__DOT__debug_h2,
-                  32,vlSelf->sc_dut_adapted__DOT__u_top__DOT__u_grid__DOT__debug_h3,
-                  32,vlSelf->sc_dut_adapted__DOT__u_top__DOT__u_grid__DOT__debug_sum);
-        vlSelf->sc_dut_adapted__DOT__u_top__DOT__u_grid__DOT__debug_adc 
-            = vlSymsp->TOP__sc_dut_adapted__DOT__u_top__DOT__sc_interface_bus_t.grid_voltage_adc;
-        VL_WRITEF("FILTER (soma>>2)=%0#\n",32,VL_SHIFTR_III(32,32,32, vlSelf->sc_dut_adapted__DOT__u_top__DOT__u_grid__DOT__debug_sum, 2U));
-        vlSelf->sc_dut_adapted__DOT__u_top__DOT__u_grid__DOT__debug_h0 
-            = vlSelf->sc_dut_adapted__DOT__u_top__DOT__u_grid__DOT__voltage_history
-            [0U];
-        vlSelf->sc_dut_adapted__DOT__u_top__DOT__u_grid__DOT__debug_h1 
-            = vlSelf->sc_dut_adapted__DOT__u_top__DOT__u_grid__DOT__voltage_history
-            [1U];
-        vlSelf->sc_dut_adapted__DOT__u_top__DOT__u_grid__DOT__debug_h2 
-            = vlSelf->sc_dut_adapted__DOT__u_top__DOT__u_grid__DOT__voltage_history
-            [2U];
-        vlSelf->sc_dut_adapted__DOT__u_top__DOT__u_grid__DOT__debug_h3 
-            = vlSelf->sc_dut_adapted__DOT__u_top__DOT__u_grid__DOT__voltage_history
-            [3U];
-        VL_WRITEF("filter_volt atual=%0#\ndata_valid=%0#, battery_connected_q=%0#\n",
+              64,VL_ITOR_D_I(16, (IData)(vlSymsp->TOP__sc_dut_adapted__DOT__u_top__DOT__sc_interface_bus_t.grid_voltage_adc)),
+              1,(IData)(vlSymsp->TOP__sc_dut_adapted__DOT__u_top__DOT__sc_interface_bus_t.battery_connected),
+              1,vlSymsp->TOP__sc_dut_adapted__DOT__u_top__DOT__sc_interface_bus_t.data_valid);
+    if (VL_UNLIKELY((((IData)(vlSelf->sc_dut_adapted__DOT__u_top__DOT__u_grid__DOT__battery_connected_q) 
+                      & (IData)(vlSelf->sc_dut_adapted__DOT__u_top__DOT__u_grid__DOT__data_valid)) 
+                     & (2U <= (IData)(vlSelf->sc_dut_adapted__DOT__u_top__DOT__u_grid__DOT__sample_count))))) {
+        VL_WRITEF("=== FILTER DEBUG ===\nADC_IN=%0#\nHIST[0]=%0#, HIST[1]=%0#, HIST[2]=%0#, HIST[3]=%0#\nSOMA (ADC+H0+H1+H2)=%0#\nFILTER (soma>>2)=%0#\nfilter_volt atual=%0#\nsample_count=%0#\n==================\n",
+                  16,vlSymsp->TOP__sc_dut_adapted__DOT__u_top__DOT__sc_interface_bus_t.grid_voltage_adc,
+                  32,vlSelf->sc_dut_adapted__DOT__u_top__DOT__u_grid__DOT__voltage_history
+                  [0U],32,vlSelf->sc_dut_adapted__DOT__u_top__DOT__u_grid__DOT__voltage_history
+                  [1U],32,vlSelf->sc_dut_adapted__DOT__u_top__DOT__u_grid__DOT__voltage_history
+                  [2U],32,vlSelf->sc_dut_adapted__DOT__u_top__DOT__u_grid__DOT__voltage_history
+                  [3U],32,vlSelf->sc_dut_adapted__DOT__u_top__DOT__u_grid__DOT__sum_voltage,
+                  32,VL_SHIFTR_III(32,32,32, vlSelf->sc_dut_adapted__DOT__u_top__DOT__u_grid__DOT__sum_voltage, 2U),
                   32,vlSelf->sc_dut_adapted__DOT__u_top__DOT__u_grid__DOT__filter_volt,
-                  1,(IData)(vlSelf->sc_dut_adapted__DOT__u_top__DOT__u_grid__DOT__data_valid),
-                  1,vlSelf->sc_dut_adapted__DOT__u_top__DOT__u_grid__DOT__battery_connected_q);
-        vlSelf->sc_dut_adapted__DOT__u_top__DOT__u_grid__DOT__debug_sum 
-            = ((((IData)(vlSymsp->TOP__sc_dut_adapted__DOT__u_top__DOT__sc_interface_bus_t.grid_voltage_adc) 
-                 + vlSelf->sc_dut_adapted__DOT__u_top__DOT__u_grid__DOT__voltage_history
-                 [0U]) + vlSelf->sc_dut_adapted__DOT__u_top__DOT__u_grid__DOT__voltage_history
-                [1U]) + vlSelf->sc_dut_adapted__DOT__u_top__DOT__u_grid__DOT__voltage_history
-               [2U]);
-        VL_WRITEF("V_CRIT_LOW_ADC=42000, V_UNSTABLE_MIN_ADC=54000\n==================\n");
+                  3,(IData)(vlSelf->sc_dut_adapted__DOT__u_top__DOT__u_grid__DOT__sample_count));
     }
 }
 
@@ -397,38 +379,31 @@ VL_INLINE_OPT void Vsc_dut_adapted___024root___nba_sequent__TOP__1(Vsc_dut_adapt
             vlSelf->sc_dut_adapted__DOT__u_top__DOT__u_grid__DOT__unnamedblk2__DOT__i = 2U;
             vlSelf->sc_dut_adapted__DOT__u_top__DOT__u_grid__DOT__unnamedblk2__DOT__i = 1U;
             vlSelf->sc_dut_adapted__DOT__u_top__DOT__u_grid__DOT__unnamedblk2__DOT__i = 0U;
-            if ((4U > (IData)(vlSelf->sc_dut_adapted__DOT__u_top__DOT__u_grid__DOT__sample_count))) {
+        }
+    }
+    if (vlSelf->reset_n) {
+        if (vlSelf->sc_dut_adapted__DOT__u_top__DOT__u_grid__DOT__battery_connected_q) {
+            if (VL_UNLIKELY((4U > (IData)(vlSelf->sc_dut_adapted__DOT__u_top__DOT__u_grid__DOT__sample_count)))) {
                 __Vdly__sc_dut_adapted__DOT__u_top__DOT__u_grid__DOT__sample_count 
                     = (7U & ((IData)(1U) + (IData)(vlSelf->sc_dut_adapted__DOT__u_top__DOT__u_grid__DOT__sample_count)));
+                VL_WRITEF("data_valid=%0#, battery_connected_q=%0#, grid_voltage_adc=%0#\n",
+                          1,vlSelf->sc_dut_adapted__DOT__u_top__DOT__u_grid__DOT__data_valid,
+                          1,(IData)(vlSelf->sc_dut_adapted__DOT__u_top__DOT__u_grid__DOT__battery_connected_q),
+                          16,vlSymsp->TOP__sc_dut_adapted__DOT__u_top__DOT__sc_interface_bus_t.grid_voltage_adc);
                 vlSelf->sc_dut_adapted__DOT__u_top__DOT__u_grid__DOT__data_valid 
                     = (3U == (IData)(vlSelf->sc_dut_adapted__DOT__u_top__DOT__u_grid__DOT__sample_count));
             } else {
                 vlSelf->sc_dut_adapted__DOT__u_top__DOT__u_grid__DOT__data_valid = 1U;
             }
-            vlSelf->sc_dut_adapted__DOT__u_top__DOT__u_grid__DOT__filter_volt 
-                = VL_SHIFTR_III(32,32,32, vlSelf->sc_dut_adapted__DOT__u_top__DOT__u_grid__DOT__sum_voltage, 2U);
-            __Vdlyvval__sc_dut_adapted__DOT__u_top__DOT__u_grid__DOT__voltage_history__v0 
-                = vlSelf->sc_dut_adapted__DOT__u_top__DOT__u_grid__DOT__voltage_history
-                [2U];
-            __Vdlyvset__sc_dut_adapted__DOT__u_top__DOT__u_grid__DOT__voltage_history__v0 = 1U;
-            __Vdlyvval__sc_dut_adapted__DOT__u_top__DOT__u_grid__DOT__voltage_history__v1 
-                = vlSelf->sc_dut_adapted__DOT__u_top__DOT__u_grid__DOT__voltage_history
-                [1U];
-            __Vdlyvval__sc_dut_adapted__DOT__u_top__DOT__u_grid__DOT__voltage_history__v2 
-                = vlSelf->sc_dut_adapted__DOT__u_top__DOT__u_grid__DOT__voltage_history
-                [0U];
-            __Vdlyvval__sc_dut_adapted__DOT__u_top__DOT__u_grid__DOT__voltage_history__v3 
-                = vlSymsp->TOP__sc_dut_adapted__DOT__u_top__DOT__sc_interface_bus_t.grid_voltage_adc;
-            vlSelf->sc_dut_adapted__DOT__u_top__DOT__u_grid__DOT__sum_voltage 
-                = ((((IData)(vlSymsp->TOP__sc_dut_adapted__DOT__u_top__DOT__sc_interface_bus_t.grid_voltage_adc) 
-                     + vlSelf->sc_dut_adapted__DOT__u_top__DOT__u_grid__DOT__voltage_history
-                     [0U]) + vlSelf->sc_dut_adapted__DOT__u_top__DOT__u_grid__DOT__voltage_history
-                    [1U]) + vlSelf->sc_dut_adapted__DOT__u_top__DOT__u_grid__DOT__voltage_history
-                   [2U]);
         } else {
             __Vdly__sc_dut_adapted__DOT__u_top__DOT__u_grid__DOT__sample_count = 0U;
             vlSelf->sc_dut_adapted__DOT__u_top__DOT__u_grid__DOT__data_valid = 0U;
         }
+    } else {
+        __Vdly__sc_dut_adapted__DOT__u_top__DOT__u_grid__DOT__sample_count = 0U;
+        vlSelf->sc_dut_adapted__DOT__u_top__DOT__u_grid__DOT__data_valid = 0U;
+    }
+    if (vlSelf->reset_n) {
         vlSymsp->TOP__sc_dut_adapted__DOT__u_top__DOT__sc_interface_bus_t.fault_code 
             = vlSelf->sc_dut_adapted__DOT__u_top__DOT__u_safety__DOT__fault_code_comb;
         vlSelf->sc_dut_adapted__DOT__u_top__DOT__u_fsm__DOT__grid_state_q 
@@ -444,8 +419,36 @@ VL_INLINE_OPT void Vsc_dut_adapted___024root___nba_sequent__TOP__1(Vsc_dut_adapt
         }
         vlSelf->sc_dut_adapted__DOT__u_top__DOT__u_fsm__DOT__fault_flag_q 
             = (4U == (IData)(vlSymsp->TOP__sc_dut_adapted__DOT__u_top__DOT__sc_interface_bus_t.current_state));
+        if (vlSelf->sc_dut_adapted__DOT__u_top__DOT__u_grid__DOT__battery_connected_q) {
+            if ((2U <= (IData)(vlSelf->sc_dut_adapted__DOT__u_top__DOT__u_grid__DOT__sample_count))) {
+                vlSelf->sc_dut_adapted__DOT__u_top__DOT__u_grid__DOT__filter_volt 
+                    = VL_SHIFTR_III(32,32,32, vlSelf->sc_dut_adapted__DOT__u_top__DOT__u_grid__DOT__sum_voltage, 2U);
+                vlSelf->sc_dut_adapted__DOT__u_top__DOT__u_grid__DOT__sum_voltage 
+                    = ((((IData)(vlSymsp->TOP__sc_dut_adapted__DOT__u_top__DOT__sc_interface_bus_t.grid_voltage_adc) 
+                         + vlSelf->sc_dut_adapted__DOT__u_top__DOT__u_grid__DOT__voltage_history
+                         [0U]) + vlSelf->sc_dut_adapted__DOT__u_top__DOT__u_grid__DOT__voltage_history
+                        [1U]) + vlSelf->sc_dut_adapted__DOT__u_top__DOT__u_grid__DOT__voltage_history
+                       [2U]);
+            }
+            __Vdlyvval__sc_dut_adapted__DOT__u_top__DOT__u_grid__DOT__voltage_history__v0 
+                = vlSelf->sc_dut_adapted__DOT__u_top__DOT__u_grid__DOT__voltage_history
+                [2U];
+            __Vdlyvset__sc_dut_adapted__DOT__u_top__DOT__u_grid__DOT__voltage_history__v0 = 1U;
+            __Vdlyvval__sc_dut_adapted__DOT__u_top__DOT__u_grid__DOT__voltage_history__v1 
+                = vlSelf->sc_dut_adapted__DOT__u_top__DOT__u_grid__DOT__voltage_history
+                [1U];
+            __Vdlyvval__sc_dut_adapted__DOT__u_top__DOT__u_grid__DOT__voltage_history__v2 
+                = vlSelf->sc_dut_adapted__DOT__u_top__DOT__u_grid__DOT__voltage_history
+                [0U];
+            __Vdlyvval__sc_dut_adapted__DOT__u_top__DOT__u_grid__DOT__voltage_history__v3 
+                = vlSymsp->TOP__sc_dut_adapted__DOT__u_top__DOT__sc_interface_bus_t.grid_voltage_adc;
+        }
         vlSymsp->TOP__sc_dut_adapted__DOT__u_top__DOT__sc_interface_bus_t.grid_state 
-            = vlSelf->sc_dut_adapted__DOT__u_top__DOT__u_grid__DOT__grid_state_enum;
+            = ((((0U == (IData)(vlSelf->sc_dut_adapted__DOT__u_top__DOT__u_grid__DOT__grid_state_enum)) 
+                 | (1U == (IData)(vlSelf->sc_dut_adapted__DOT__u_top__DOT__u_grid__DOT__grid_state_enum))) 
+                | (2U == (IData)(vlSelf->sc_dut_adapted__DOT__u_top__DOT__u_grid__DOT__grid_state_enum)))
+                ? (IData)(vlSelf->sc_dut_adapted__DOT__u_top__DOT__u_grid__DOT__grid_state_enum)
+                : 0U);
         vlSymsp->TOP__sc_dut_adapted__DOT__u_top__DOT__sc_interface_bus_t.current_state 
             = vlSelf->sc_dut_adapted__DOT__u_top__DOT__u_fsm__DOT__next_state;
     } else {
@@ -453,8 +456,6 @@ VL_INLINE_OPT void Vsc_dut_adapted___024root___nba_sequent__TOP__1(Vsc_dut_adapt
         vlSelf->sc_dut_adapted__DOT__u_top__DOT__u_fsm__DOT__grid_state_q = 0U;
         vlSelf->sc_dut_adapted__DOT__u_top__DOT__u_fsm__DOT__check_wait_count = 0U;
         vlSelf->sc_dut_adapted__DOT__u_top__DOT__u_fsm__DOT__fault_flag_q = 0U;
-        __Vdly__sc_dut_adapted__DOT__u_top__DOT__u_grid__DOT__sample_count = 0U;
-        vlSelf->sc_dut_adapted__DOT__u_top__DOT__u_grid__DOT__data_valid = 0U;
         vlSelf->sc_dut_adapted__DOT__u_top__DOT__u_grid__DOT__filter_volt = 0U;
         vlSymsp->TOP__sc_dut_adapted__DOT__u_top__DOT__sc_interface_bus_t.grid_state = 0U;
         vlSymsp->TOP__sc_dut_adapted__DOT__u_top__DOT__sc_interface_bus_t.current_state = 0U;
@@ -464,8 +465,6 @@ VL_INLINE_OPT void Vsc_dut_adapted___024root___nba_sequent__TOP__1(Vsc_dut_adapt
         = ((IData)(vlSelf->reset_n) && (IData)(vlSymsp->TOP__sc_dut_adapted__DOT__u_top__DOT__sc_interface_bus_t.battery_connected));
     vlSymsp->TOP__sc_dut_adapted__DOT__u_top__DOT__sc_interface_bus_t.fault_flag 
         = ((IData)(vlSelf->reset_n) && (IData)(vlSelf->sc_dut_adapted__DOT__u_top__DOT__u_safety__DOT__fault_flag_comb));
-    vlSelf->sc_dut_adapted__DOT__u_top__DOT__u_grid__DOT__sample_count 
-        = __Vdly__sc_dut_adapted__DOT__u_top__DOT__u_grid__DOT__sample_count;
     vlSelf->sc_dut_adapted__DOT__u_top__DOT__fault_code 
         = vlSymsp->TOP__sc_dut_adapted__DOT__u_top__DOT__sc_interface_bus_t.fault_code;
     vlSelf->sc_dut_adapted__DOT__u_top__DOT__u_fsm__DOT__data_valid_q 
@@ -478,6 +477,8 @@ VL_INLINE_OPT void Vsc_dut_adapted___024root___nba_sequent__TOP__1(Vsc_dut_adapt
         = vlSelf->sc_dut_adapted__DOT__u_top__DOT__u_grid__DOT__data_valid;
     vlSymsp->TOP__sc_dut_adapted__DOT__sc_interf_bus.fault_flag 
         = vlSelf->sc_dut_adapted__DOT__u_top__DOT__fault_flag;
+    vlSelf->sc_dut_adapted__DOT__u_top__DOT__u_grid__DOT__sample_count 
+        = __Vdly__sc_dut_adapted__DOT__u_top__DOT__u_grid__DOT__sample_count;
     if (__Vdlyvset__sc_dut_adapted__DOT__u_top__DOT__u_grid__DOT__voltage_history__v0) {
         vlSelf->sc_dut_adapted__DOT__u_top__DOT__u_grid__DOT__voltage_history[3U] 
             = __Vdlyvval__sc_dut_adapted__DOT__u_top__DOT__u_grid__DOT__voltage_history__v0;
@@ -541,7 +542,9 @@ VL_INLINE_OPT void Vsc_dut_adapted___024root___nba_sequent__TOP__2(Vsc_dut_adapt
                 | (IData)(vlSymsp->TOP__sc_dut_adapted__DOT__u_top__DOT__sc_interface_bus_t.ml_predict_instability))
                 ? 2U : (((0xd2f0U > vlSelf->sc_dut_adapted__DOT__u_top__DOT__u_grid__DOT__filter_volt) 
                          | (0x124f8U < vlSelf->sc_dut_adapted__DOT__u_top__DOT__u_grid__DOT__filter_volt))
-                         ? 1U : 0U)) : 0U);
+                         ? 1U : (((0xd2f0U < vlSelf->sc_dut_adapted__DOT__u_top__DOT__u_grid__DOT__filter_volt) 
+                                  & (0x124f8U > vlSelf->sc_dut_adapted__DOT__u_top__DOT__u_grid__DOT__filter_volt))
+                                  ? 0U : 2U))) : 0U);
     vlSelf->sc_dut_adapted__DOT__u_top__DOT__u_fsm__DOT__next_state 
         = vlSymsp->TOP__sc_dut_adapted__DOT__u_top__DOT__sc_interface_bus_t.current_state;
     if ((4U & (IData)(vlSymsp->TOP__sc_dut_adapted__DOT__u_top__DOT__sc_interface_bus_t.current_state))) {

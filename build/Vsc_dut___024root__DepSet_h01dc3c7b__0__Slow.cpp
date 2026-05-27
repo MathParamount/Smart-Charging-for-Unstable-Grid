@@ -41,6 +41,16 @@ VL_ATTR_COLD void Vsc_dut___024root___stl_sequent__TOP__0(Vsc_dut___024root* vlS
     vlSelf->fault_flag = vlSymsp->TOP__sc_dut__DOT__sc_interf_bus.fault_flag;
     vlSelf->fault_code = vlSymsp->TOP__sc_dut__DOT__sc_interf_bus.fault_code;
     vlSelf->current_state = vlSymsp->TOP__sc_dut__DOT__sc_interf_bus.current_state;
+    vlSelf->sc_dut__DOT__u_grid__DOT__grid_state_enum 
+        = ((IData)(vlSelf->sc_dut__DOT__u_grid__DOT__data_valid)
+            ? ((((0xa410U > vlSelf->sc_dut__DOT__u_grid__DOT__filter_volt) 
+                 | (0x13880U < vlSelf->sc_dut__DOT__u_grid__DOT__filter_volt)) 
+                | (IData)(vlSelf->ml_predict_instability))
+                ? 2U : (((0xd2f0U > vlSelf->sc_dut__DOT__u_grid__DOT__filter_volt) 
+                         | (0x124f8U < vlSelf->sc_dut__DOT__u_grid__DOT__filter_volt))
+                         ? 1U : (((0xd2f0U < vlSelf->sc_dut__DOT__u_grid__DOT__filter_volt) 
+                                  & (0x124f8U > vlSelf->sc_dut__DOT__u_grid__DOT__filter_volt))
+                                  ? 0U : 2U))) : 0U);
     vlSelf->sc_dut__DOT__u_fsm__DOT__next_state = vlSymsp->TOP__sc_dut__DOT__sc_interf_bus.current_state;
     if ((4U & (IData)(vlSymsp->TOP__sc_dut__DOT__sc_interf_bus.current_state))) {
         if ((2U & (IData)(vlSymsp->TOP__sc_dut__DOT__sc_interf_bus.current_state))) {
