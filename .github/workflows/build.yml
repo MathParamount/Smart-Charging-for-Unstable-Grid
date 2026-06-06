@@ -1,0 +1,37 @@
+name: Build Verilator
+
+on:
+  push:
+
+jobs:
+  build-windows:
+    runs-on: windows-latest
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Install Verilator
+        run: choco install verilator -y
+
+      - name: Check tools
+        shell: bash
+        run: |
+          verilator --version
+          g++ --version
+
+      - name: Build
+        shell: bash
+        run: |
+          chmod +x run_verl.sh
+          ./run_verl.sh
+
+      - name: List files
+        shell: bash
+        run: |
+          ls -R build
+
+      - name: Upload build
+        uses: actions/upload-artifact@v4
+        with:
+          name: build
+          path: build/
