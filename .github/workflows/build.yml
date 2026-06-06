@@ -1,37 +1,20 @@
-name: Build Verilator
-
-on:
-  push:
-
 jobs:
-  build-windows:
-    runs-on: windows-latest
+  build:
+    runs-on: ubuntu-latest
 
     steps:
       - uses: actions/checkout@v4
 
       - name: Install Verilator
-        run: choco install verilator -y
-
-      - name: Check tools
-        shell: bash
-        run: |
-          verilator --version
-          g++ --version
+        run: sudo apt-get update && sudo apt-get install -y verilator
 
       - name: Build
-        shell: bash
         run: |
           chmod +x run_verl.sh
           ./run_verl.sh
 
-      - name: List files
-        shell: bash
-        run: |
-          ls -R build
-
-      - name: Upload build
+      - name: Upload
         uses: actions/upload-artifact@v4
         with:
-          name: build
+          name: sim
           path: build/
