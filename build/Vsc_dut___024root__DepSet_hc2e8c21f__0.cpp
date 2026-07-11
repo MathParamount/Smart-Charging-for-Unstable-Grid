@@ -52,7 +52,7 @@ VL_INLINE_OPT void Vsc_dut___024root___nba_sequent__TOP__0(Vsc_dut___024root* vl
     if (VL_UNLIKELY((((IData)(vlSelf->sc_dut__DOT__u_grid__DOT__battery_connected_q) 
                       & (IData)(vlSelf->sc_dut__DOT__u_grid__DOT__data_valid)) 
                      & (2U <= (IData)(vlSelf->sc_dut__DOT__u_grid__DOT__sample_count))))) {
-        VL_WRITEF("=== FILTER DEBUG ===\nADC_IN_ANCIENT=%0#\nHIST[0]=%0#, HIST[1]=%0#, HIST[2]=%0#, HIST[3]=%0#\nSOMA (ADC+H0+H1+H2)=%0#\nFILTER (soma>>2)=%0#\nfilter_volt atual=%0#\nsample_count=%0#\n==================\n",
+        VL_WRITEF("=== FILTER DEBUG ===\nADC_IN=%0#\nHIST[0]=%0#, HIST[1]=%0#, HIST[2]=%0#, HIST[3]=%0#\nSOMA (ADC+H0+H1+H2)=%0#\nFILTER (soma>>2)=%0#\nfilter_volt atual=%0#\nsample_count=%0#\n==================\n",
                   16,vlSelf->grid_voltage_adc,32,vlSelf->sc_dut__DOT__u_grid__DOT__voltage_history
                   [0U],32,vlSelf->sc_dut__DOT__u_grid__DOT__voltage_history
                   [1U],32,vlSelf->sc_dut__DOT__u_grid__DOT__voltage_history
