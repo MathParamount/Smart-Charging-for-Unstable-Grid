@@ -14,18 +14,18 @@ Finally, real-world implementation is a crucial step for system testing and prac
 
 ## Problem statement & user case
 
-### The Brazilian energy Scenario
+### 🇧🇷 The Brazilian energy Scenario
 
 Energy instability in Brazil is an emerging issue that causes device damage and poses security risks. According to data from the ONS (*Operador Nacional do Sistema Elétrico*), 14.4% of the Brazilian population experienced energy instability during the World Cup in 2026. Furthermore, a lack of Smart Energy Management leads to significant energy loss and higher costs. An intelligent management system can detect and predict grid instabilities, communicating with both the end-users and the broader grid to prepare for energy fluctuations. This optimizes grid performance and minimizes costs during energy congestion. 
 Additionally, the excess of renewable energy in the grid often triggers instabilities, such as frequency spikes and low system inertia (caused by reactive power). The current worldwide method to mitigate this relies on synchronous condensers—a costly tool with low scalability. These physical tools could be largely bypassed if a smart grid, driven by a predictive power management system, were implemented to detect and handle these instabilities dynamically.
 
-### Global Scenario
+### 🌍 Global Scenario
 
 The surging computational demands of AI training and data center operations have become an escalating issue, as massive amounts of energy are consumed for model training and cooling systems in these energy-hungry facilities. According to the International Energy Agency (IEA), data centers are projected to account for 3% to 4% of global energy consumption by the end of this decade. An Intelligent Energy Management System can mitigate this issue by scheduling energy intensive tasks during off-peak hours when grid congestion is low. This **load-shifting strategy** significantly reduces greenhouse gas emissions associated with fossil-fuel based peak power generation.
 
 Furthermore, the Electric Reliability Council of Texas (ERCOT) has publicly warned about the growing implications of large, flexible loads, such as data centers, for long-term grid planning and operational stability. This dynamic creates a critical structural mismatch: while compute infrastructure can scale rapidly, electrical grid infrastructure generally cannot.
 
-## Our solutions
+## 💡 Our solutions
 
 This project aims to mitigate the hazards caused by grid instability during the charging process. The proposed **Power Management System (PMS)** detects and predicts grid anomalies, sending data to the actuators to make real-time decisions. 
 
@@ -42,7 +42,7 @@ This project aims to mitigate the hazards caused by grid instability during the 
 * **EDA & Verification:** Verilator, C++
 * **Target Applications:** EVs, Smartphone/Desktop charging, Battery Energy Storage Systems (BESS)
 
-# Architecture
+# 🏛 Architecture
 
 The digital control system is the core of the architecture, responsible for managing state conditions and the charge activation mechanism. It receives the grid voltage and processes decisions based on real-time grid conditions. An internal buffer is utilized to calculate a moving average, which determines the filtered voltage used for comparison against an internal threshold.
 
@@ -63,7 +63,7 @@ A high-level block diagram was created to define the signal routing and processi
 * **Safety Monitor:** Acts as a protection block that continuously evaluates grid conditions. It asserts a binary fault signal to indicate a FAULT state and generates system error codes for debugging and simulation analysis.
 
 
-### Waveforms && digital flow
+### 📊 Waveforms && digital flow
 
 <img width="1867" height="315" alt="wave_general" src="https://github.com/user-attachments/assets/49aef023-adf0-4b29-abb5-2c7085c3522e" />
 
@@ -94,7 +94,7 @@ The PMS was designed to process a three-phase power supply with a 120-degree pha
 
 Inside the PMS C-Script, the Root Mean Square (RMS) voltage for each phase is calculated using a moving average filter. The output function computes the individual phase RMS values, which are then combined to calculate an **equivalent grid voltage** (the aggregate RMS of the three phases).
 
-### Grid State Evaluation & BESS Control
+### ⚡️ Grid State Evaluation & BESS Control
 
 Based on this equivalent grid voltage, the system determines the current grid condition. This information is then processed by a Finite State Machine (FSM), which defines the current operational stage. Finally, the FSM sends this state information to the Battery Energy Storage System (BESS) via the `bess_cmd` signal, dictating the battery's operational mode and defining the simulation test scenarios.
 
@@ -142,7 +142,7 @@ git clone https://github.com/MathParamount/Smart-Charging-for-Unstable-Grid.git
 cd Smart-Charging-for-Unstable-Grid
 ```
 
-## Project Structure
+## 📃 Project Structure
 
 ```
 .
@@ -161,7 +161,7 @@ cd Smart-Charging-for-Unstable-Grid
 └── wave.vcd             # Generated simulation waveform
 ```
 
-## Compile and Run
+## 💻 Compile and Run
 
 The easiest way to compile and execute the simulation is:
 
@@ -197,7 +197,7 @@ gtkwave build/wave.vcd
 
 **Note:** The exact command may vary depending on the modules included in your project.
 
-## Simulation
+## 🎞 Simulation
 
 The C++ testbench (`sim_run_cpp/script_test.cpp`) is responsible for:
 
@@ -209,7 +209,7 @@ The C++ testbench (`sim_run_cpp/script_test.cpp`) is responsible for:
 
 The `build/` and `obj_dir/` directories are automatically generated during compilation and contain intermediate files, generated C++ sources, object files, and the simulation executable.
 
-# Observations
+# 🔊 Observations
 
 - The mixed-signal co-simulation was one of the most challenging parts of the project. Several approaches were investigated, including Ngspice integration and DLL-based communication.
 - The digital hardware was designed as a secure communication interface intended for electric vehicle (EV) charging and discharging applications.
@@ -217,7 +217,7 @@ The `build/` and `obj_dir/` directories are automatically generated during compi
 - The SystemVerilog implementation incorporates mechanisms to reduce metastability risks and includes assertions and formal verification constructs where applicable.
 - Artificial intelligence techniques have been explored to improve system maintenance, monitoring, and future project scalability.
 
-# status
+# 🏷 status
 
 - Digital architecture design (Completed)
 - RTL code (Completed)
