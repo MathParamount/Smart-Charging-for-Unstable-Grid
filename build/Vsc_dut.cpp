@@ -15,7 +15,9 @@ Vsc_dut::Vsc_dut(VerilatedContext* _vcontextp__, const char* _vcname__)
     , battery_connected{vlSymsp->TOP.battery_connected}
     , battery_full{vlSymsp->TOP.battery_full}
     , ml_predict_instability{vlSymsp->TOP.ml_predict_instability}
+    , cmd{vlSymsp->TOP.cmd}
     , charge_enable{vlSymsp->TOP.charge_enable}
+    , power_discharge{vlSymsp->TOP.power_discharge}
     , fault_flag{vlSymsp->TOP.fault_flag}
     , current_state{vlSymsp->TOP.current_state}
     , fault_code{vlSymsp->TOP.fault_code}

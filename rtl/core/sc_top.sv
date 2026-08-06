@@ -12,6 +12,7 @@ input logic [15:0] grid_voltage_adc,
 //input logic [15:0] grid_current_sensor,
 
 output logic charge_enable,
+output logic power_discharge,
 output logic fault_flag,
 output [2:0] current_state,
 output logic [1:0] fault_code,
@@ -33,6 +34,7 @@ output logic [1:0] grid_state
     	
     //The output of the top come from interface
     assign charge_enable = sc_interface_bus_t.charge_enable;
+    assign power_discharge = sc_interface_bus_t.power_discharge;
     assign fault_flag = sc_interface_bus_t.fault_flag;
     	
     assign fault_code = sc_interface_bus_t.fault_code;
@@ -67,10 +69,11 @@ output logic [1:0] grid_state
 	//debug
 	always_ff @(posedge clk) begin
 	$display("\nSc_top:");
-        $display("TOP: fault_flag=%d, state=%s, charge=%d, grid_voltage_adc=%f", 
+        $display("TOP: fault_flag=%d, state=%s, charge=%d, discharge=%d grid_voltage_adc=%f", 
                  sc_interface_bus_t.fault_flag,
                  sc_interface_bus_t.current_state.name(),
                  sc_interface_bus_t.charge_enable,
+                 sc_interface_bus_t.power_discharge,
                  sc_interface_bus_t.grid_voltage_adc);
 	
 		$display("\nTOP: reset_n=1, batt_conn=%0d, data_valid=%0d", 

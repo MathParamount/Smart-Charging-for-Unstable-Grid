@@ -9,6 +9,7 @@ interface sc_interface_if;
     
     //control
     logic charge_enable;		//come from fsm
+    logic power_discharge;
     
     //battery
     logic battery_connected;
@@ -18,7 +19,8 @@ interface sc_interface_if;
     logic [15:0] grid_voltage_adc;
     
     logic data_valid;
-    
+    logic cmd;
+
     //grid state
     grid_state_t grid_state;
     
@@ -43,8 +45,10 @@ interface sc_interface_if;
       input fault_code,
       input ml_predict_instability,
       input data_valid,
+      input cmd,
       output current_state,
-      output charge_enable
+      output charge_enable,
+      output power_discharge
     );
     
     modport safety
@@ -53,6 +57,7 @@ interface sc_interface_if;
       input grid_state,
       input ml_predict_instability,
       input charge_enable,
+      input power_discharge,
       output fault_flag,
       output fault_code
     );

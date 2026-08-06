@@ -61,17 +61,10 @@ always_ff @(posedge clk or negedge reset_n) begin
         battery_connected_q <= grid_bus.battery_connected;
 end
 
-//debug
-always_ff @(posedge clk) begin
-    if (battery_connected_q)
-        $display("DEBUG: battery_connected_q = 1");
-end
-
-
 always_ff @(posedge clk or negedge reset_n) begin
     if(!reset_n) begin
         for(int i=0; i<4; i++) voltage_history[i] <= 0;
-
+        
         filter_volt <= 0;
     end
     else if(battery_connected_q) begin

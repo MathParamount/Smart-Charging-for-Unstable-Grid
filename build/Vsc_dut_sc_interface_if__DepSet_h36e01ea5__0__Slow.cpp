@@ -13,5 +13,7 @@ VL_ATTR_COLD void Vsc_dut_sc_interface_if___ctor_var_reset(Vsc_dut_sc_interface_
     vlSelf->current_state = VL_RAND_RESET_I(3);
     vlSelf->fault_flag = VL_RAND_RESET_I(1);
     vlSelf->fault_code = VL_RAND_RESET_I(2);
+    vlSelf->charge_enable = VL_RAND_RESET_I(1);
+    vlSelf->power_discharge = VL_RAND_RESET_I(1);
     vlSelf->grid_state = VL_RAND_RESET_I(2);
 }

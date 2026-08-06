@@ -17,6 +17,8 @@ class alignas(VL_CACHE_LINE_BYTES) Vsc_dut_sc_interface_if final : public Verila
     CData/*2:0*/ current_state;
     CData/*0:0*/ fault_flag;
     CData/*1:0*/ fault_code;
+    CData/*0:0*/ charge_enable;
+    CData/*0:0*/ power_discharge;
     CData/*1:0*/ grid_state;
 
     // INTERNAL VARIABLES

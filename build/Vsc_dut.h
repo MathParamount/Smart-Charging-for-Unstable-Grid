@@ -33,7 +33,9 @@ class alignas(VL_CACHE_LINE_BYTES) Vsc_dut VL_NOT_FINAL : public VerilatedModel 
     VL_IN8(&battery_connected,0,0);
     VL_IN8(&battery_full,0,0);
     VL_IN8(&ml_predict_instability,0,0);
+    VL_IN8(&cmd,0,0);
     VL_OUT8(&charge_enable,0,0);
+    VL_OUT8(&power_discharge,0,0);
     VL_OUT8(&fault_flag,0,0);
     VL_OUT8(&current_state,2,0);
     VL_OUT8(&fault_code,1,0);

@@ -167,7 +167,9 @@ VL_ATTR_COLD void Vsc_dut___024root___ctor_var_reset(Vsc_dut___024root* vlSelf) 
     vlSelf->battery_full = VL_RAND_RESET_I(1);
     vlSelf->ml_predict_instability = VL_RAND_RESET_I(1);
     vlSelf->grid_voltage_adc = VL_RAND_RESET_I(16);
+    vlSelf->cmd = VL_RAND_RESET_I(1);
     vlSelf->charge_enable = VL_RAND_RESET_I(1);
+    vlSelf->power_discharge = VL_RAND_RESET_I(1);
     vlSelf->fault_flag = VL_RAND_RESET_I(1);
     vlSelf->current_state = VL_RAND_RESET_I(3);
     vlSelf->fault_code = VL_RAND_RESET_I(2);
@@ -191,6 +193,10 @@ VL_ATTR_COLD void Vsc_dut___024root___ctor_var_reset(Vsc_dut___024root* vlSelf) 
     vlSelf->sc_dut__DOT__u_safety__DOT__grid_state_enum = VL_RAND_RESET_I(2);
     vlSelf->sc_dut__DOT__u_safety__DOT__fault_flag_comb = VL_RAND_RESET_I(1);
     vlSelf->sc_dut__DOT__u_safety__DOT__fault_code_comb = VL_RAND_RESET_I(2);
+    vlSelf->__Vdly__sc_dut__DOT__u_grid__DOT__sample_count = VL_RAND_RESET_I(3);
+    vlSelf->__Vdly__sc_dut__DOT__u_grid__DOT__data_valid = VL_RAND_RESET_I(1);
+    vlSelf->__Vdlyvset__sc_dut__DOT__u_grid__DOT__voltage_history__v0 = 0;
+    vlSelf->__Vdlyvset__sc_dut__DOT__u_grid__DOT__voltage_history__v4 = 0;
     vlSelf->__Vtrigprevexpr___TOP__clk__0 = VL_RAND_RESET_I(1);
     vlSelf->__Vtrigprevexpr___TOP__reset_n__0 = VL_RAND_RESET_I(1);
     for (int __Vi0 = 0; __Vi0 < 3; ++__Vi0) {

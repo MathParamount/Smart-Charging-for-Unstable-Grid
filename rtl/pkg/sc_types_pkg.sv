@@ -12,7 +12,8 @@ package sc_types_pkg;
      IDLE = 3'b000,
      CHECK_GRID = 3'b001,
      CHARGING = 3'b010,
-     WAIT = 3'b011,
-     FAULT = 3'b100
+     DISCHARGING  = 3'b011,
+     WAIT = 3'b100,
+     FAULT = 3'b101
   } state_t;
 endpackage

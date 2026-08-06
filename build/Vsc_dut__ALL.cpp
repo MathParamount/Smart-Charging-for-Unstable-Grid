@@ -5,6 +5,7 @@
 #include "Vsc_dut___024root__DepSet_hc2e8c21f__0.cpp"
 #include "Vsc_dut_sc_interface_if__DepSet_h36e01ea5__0.cpp"
 #include "Vsc_dut__Trace__0.cpp"
+#include "Vsc_dut__ConstPool_0.cpp"
 #include "Vsc_dut___024root__Slow.cpp"
 #include "Vsc_dut___024root__DepSet_h01dc3c7b__0__Slow.cpp"
 #include "Vsc_dut___024root__DepSet_hc2e8c21f__0__Slow.cpp"

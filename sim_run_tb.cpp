@@ -168,18 +168,64 @@ int main(int argc, char **argv)
         
   		 // Apply tension
    	 set_voltage(top, tests[test].v_rms);
-
-	         
+		 
+		 top->cmd = 0;
+	     
    	 // wait cycle stabilization
    	 for(int i = 0; i < 20; i++) {
         	tick(top, pointer);
    	 }
-        
+
+		  //state verification
+		  int state = top->current_state;
+        printf("   State after stabilization: %d (expected %d)\n", state, tests[test].expected_state);
+	 }
+	 
+	 cout << "\n---------------DISCHARGE COMMAND TEST-----------------" << endl;
+		  
+        set_voltage(top,127.0);
+		  top->cmd=0;
+
+		  // Aguarda estabilização
+    	  for (int i = 0; i < 20; i++) {
+        tick(top, pointer);
+    	  }
+
+    	  printf("Before cmd: state = %d (esperado NORMAL=0)\n", top->current_state);
+
+    	 // Active discharge signal
+    	 top->cmd = 1;
+
+    	// reaction system cycles (4 cycles)
+    	for (int i = 0; i < 4; i++) {
+        tick(top, pointer);
+      }
+
        // wait 10 cycles
        for(int i = 0; i < 10; i++) {
             tick(top, pointer);
-       	 }
-    }
+				top->cmd = 0;
+       }
+    	 
+	 	// Verifying if DISCHARGING
+    	int state_after_cmd = top->current_state;
+    
+	 	printf("After cmd active (2 cycles): state = %d (wait DISCHARGING=3)\n", state_after_cmd);
+
+    	if (state_after_cmd == 3) {
+        cout << " Discharged work!" << endl;
+    	} else {
+        cout << " Discharge state didn't work so well, State = " << state_after_cmd << endl;
+    	}
+
+    	for (int i = 0; i < 10; i++) {
+        tick(top, pointer);
+    	}
+
+    	printf("After cmd active (total 7 cycles): state = %d\n", top->current_state);
+
+    	// Deactive cmd signal
+    	top->cmd = 0;
 
  	 cout << "battery connected: " << (bool)top->battery_connected << endl;
   	 cout << "Battery full: " << (int)top->battery_full << endl;

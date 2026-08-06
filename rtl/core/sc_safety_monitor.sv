@@ -86,7 +86,28 @@ module sc_safety_monitor
 				   default: begin
 					fault_flag_comb = safety_bus.ml_predict_instability;
 				   end
-			    	endcase
+			    endcase
+			end
+
+			DISCHARGING: begin
+				case(grid_state_enum)
+				   GRID_CRITICAL: begin
+				     fault_flag_comb = 1'b1;
+				     fault_code_comb = 2'b11;
+				   end
+				   GRID_UNSTABLE: begin
+					fault_flag_comb = 1'b0;
+				        fault_code_comb = 2'b10;
+				   end
+				   GRID_NORMAL: begin
+				    fault_flag_comb = 1'b0;
+				    fault_code_comb = 2'b01;
+				   end
+				   
+				   default: begin
+					fault_flag_comb = safety_bus.ml_predict_instability;
+				   end
+			    endcase
 			end
 			
 			WAIT: begin

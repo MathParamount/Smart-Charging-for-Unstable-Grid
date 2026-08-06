@@ -45,57 +45,73 @@ VL_INLINE_OPT void Vsc_dut___024root___ico_sequent__TOP__0(Vsc_dut___024root* vl
                                   ? 0U : 2U))) : 0U);
     vlSelf->sc_dut__DOT__u_fsm__DOT__next_state = vlSymsp->TOP__sc_dut__DOT__sc_interf_bus.current_state;
     if ((4U & (IData)(vlSymsp->TOP__sc_dut__DOT__sc_interf_bus.current_state))) {
-        if ((2U & (IData)(vlSymsp->TOP__sc_dut__DOT__sc_interf_bus.current_state))) {
-            vlSelf->sc_dut__DOT__u_fsm__DOT__next_state = 0U;
-        } else if ((1U & (IData)(vlSymsp->TOP__sc_dut__DOT__sc_interf_bus.current_state))) {
-            vlSelf->sc_dut__DOT__u_fsm__DOT__next_state = 0U;
-        } else if (vlSelf->ml_predict_instability) {
-            vlSelf->sc_dut__DOT__u_fsm__DOT__next_state = 4U;
-        } else if ((1U & ((~ (IData)(vlSelf->reset_n)) 
-                          | (~ (IData)(vlSelf->sc_dut__DOT__u_fsm__DOT__battery_connected_q))))) {
-            vlSelf->sc_dut__DOT__u_fsm__DOT__next_state = 0U;
-        } else if ((((0U == (IData)(vlSelf->sc_dut__DOT__u_fsm__DOT__grid_state_q)) 
-                     & (~ (IData)(vlSelf->battery_full))) 
-                    & (~ (IData)(vlSelf->ml_predict_instability)))) {
-            vlSelf->sc_dut__DOT__u_fsm__DOT__next_state = 1U;
-        }
-    } else if ((2U & (IData)(vlSymsp->TOP__sc_dut__DOT__sc_interf_bus.current_state))) {
-        if ((1U & (IData)(vlSymsp->TOP__sc_dut__DOT__sc_interf_bus.current_state))) {
-            if ((1U & ((IData)(vlSelf->battery_full) 
-                       | (~ (IData)(vlSelf->sc_dut__DOT__u_fsm__DOT__battery_connected_q))))) {
+        if ((1U & (~ ((IData)(vlSymsp->TOP__sc_dut__DOT__sc_interf_bus.current_state) 
+                      >> 1U)))) {
+            if ((1U & (IData)(vlSymsp->TOP__sc_dut__DOT__sc_interf_bus.current_state))) {
+                if (vlSelf->ml_predict_instability) {
+                    vlSelf->sc_dut__DOT__u_fsm__DOT__next_state = 5U;
+                } else if ((1U & ((~ (IData)(vlSelf->reset_n)) 
+                                  | (~ (IData)(vlSelf->sc_dut__DOT__u_fsm__DOT__battery_connected_q))))) {
+                    vlSelf->sc_dut__DOT__u_fsm__DOT__next_state = 0U;
+                } else if ((((0U == (IData)(vlSelf->sc_dut__DOT__u_fsm__DOT__grid_state_q)) 
+                             & (~ (IData)(vlSelf->battery_full))) 
+                            & (~ (IData)(vlSelf->ml_predict_instability)))) {
+                    vlSelf->sc_dut__DOT__u_fsm__DOT__next_state = 1U;
+                }
+            } else if ((1U & ((IData)(vlSelf->battery_full) 
+                              | (~ (IData)(vlSelf->sc_dut__DOT__u_fsm__DOT__battery_connected_q))))) {
                 vlSelf->sc_dut__DOT__u_fsm__DOT__next_state = 0U;
             } else if (((0U == (IData)(vlSelf->sc_dut__DOT__u_fsm__DOT__grid_state_q)) 
                         & (~ (IData)(vlSelf->ml_predict_instability)))) {
-                vlSelf->sc_dut__DOT__u_fsm__DOT__next_state = 2U;
+                vlSelf->sc_dut__DOT__u_fsm__DOT__next_state 
+                    = ((IData)(vlSelf->cmd) ? 3U : 2U);
             } else if (((IData)(vlSelf->ml_predict_instability) 
                         | (2U == (IData)(vlSelf->sc_dut__DOT__u_fsm__DOT__grid_state_q)))) {
-                vlSelf->sc_dut__DOT__u_fsm__DOT__next_state = 4U;
+                vlSelf->sc_dut__DOT__u_fsm__DOT__next_state = 5U;
             } else if ((1U == (IData)(vlSelf->sc_dut__DOT__u_fsm__DOT__grid_state_q))) {
-                vlSelf->sc_dut__DOT__u_fsm__DOT__next_state = 3U;
+                vlSelf->sc_dut__DOT__u_fsm__DOT__next_state = 4U;
+            }
+        }
+    } else if ((2U & (IData)(vlSymsp->TOP__sc_dut__DOT__sc_interf_bus.current_state))) {
+        if ((1U & (IData)(vlSymsp->TOP__sc_dut__DOT__sc_interf_bus.current_state))) {
+            if (((IData)(vlSelf->ml_predict_instability) 
+                 | (2U == (IData)(vlSelf->sc_dut__DOT__u_fsm__DOT__grid_state_q)))) {
+                vlSelf->sc_dut__DOT__u_fsm__DOT__next_state = 5U;
+            } else if (vlSelf->cmd) {
+                if ((1U == (IData)(vlSelf->sc_dut__DOT__u_fsm__DOT__grid_state_q))) {
+                    vlSelf->sc_dut__DOT__u_fsm__DOT__next_state = 4U;
+                } else if ((1U & ((~ (IData)(vlSelf->sc_dut__DOT__u_fsm__DOT__battery_connected_q)) 
+                                  | (~ (IData)(vlSelf->sc_dut__DOT__u_fsm__DOT__data_valid_q))))) {
+                    vlSelf->sc_dut__DOT__u_fsm__DOT__next_state = 0U;
+                }
+            } else {
+                vlSelf->sc_dut__DOT__u_fsm__DOT__next_state = 2U;
             }
         } else if (vlSelf->ml_predict_instability) {
-            vlSelf->sc_dut__DOT__u_fsm__DOT__next_state = 4U;
+            vlSelf->sc_dut__DOT__u_fsm__DOT__next_state = 5U;
         } else if ((2U == (IData)(vlSelf->sc_dut__DOT__u_fsm__DOT__grid_state_q))) {
-            vlSelf->sc_dut__DOT__u_fsm__DOT__next_state = 4U;
+            vlSelf->sc_dut__DOT__u_fsm__DOT__next_state = 5U;
         } else if ((1U == (IData)(vlSelf->sc_dut__DOT__u_fsm__DOT__grid_state_q))) {
-            vlSelf->sc_dut__DOT__u_fsm__DOT__next_state = 3U;
+            vlSelf->sc_dut__DOT__u_fsm__DOT__next_state = 4U;
         } else if ((1U & (((IData)(vlSelf->battery_full) 
                            | (~ (IData)(vlSelf->sc_dut__DOT__u_fsm__DOT__battery_connected_q))) 
                           | (~ (IData)(vlSelf->sc_dut__DOT__u_fsm__DOT__data_valid_q))))) {
             vlSelf->sc_dut__DOT__u_fsm__DOT__next_state = 0U;
         } else if ((0U == (IData)(vlSelf->sc_dut__DOT__u_fsm__DOT__grid_state_q))) {
-            vlSelf->sc_dut__DOT__u_fsm__DOT__next_state = 2U;
+            vlSelf->sc_dut__DOT__u_fsm__DOT__next_state 
+                = ((IData)(vlSelf->cmd) ? 3U : 2U);
         }
     } else if ((1U & (IData)(vlSymsp->TOP__sc_dut__DOT__sc_interf_bus.current_state))) {
         if (vlSelf->sc_dut__DOT__u_fsm__DOT__data_valid_q) {
             if ((3U > (IData)(vlSelf->sc_dut__DOT__u_fsm__DOT__check_wait_count))) {
                 vlSelf->sc_dut__DOT__u_fsm__DOT__next_state = 1U;
             } else if ((2U == (IData)(vlSelf->sc_dut__DOT__u_fsm__DOT__grid_state_q))) {
-                vlSelf->sc_dut__DOT__u_fsm__DOT__next_state = 4U;
+                vlSelf->sc_dut__DOT__u_fsm__DOT__next_state = 5U;
             } else if ((1U == (IData)(vlSelf->sc_dut__DOT__u_fsm__DOT__grid_state_q))) {
-                vlSelf->sc_dut__DOT__u_fsm__DOT__next_state = 3U;
+                vlSelf->sc_dut__DOT__u_fsm__DOT__next_state = 4U;
             } else if ((0U == (IData)(vlSelf->sc_dut__DOT__u_fsm__DOT__grid_state_q))) {
-                vlSelf->sc_dut__DOT__u_fsm__DOT__next_state = 2U;
+                vlSelf->sc_dut__DOT__u_fsm__DOT__next_state 
+                    = ((IData)(vlSelf->cmd) ? 3U : 2U);
             }
         } else {
             vlSelf->sc_dut__DOT__u_fsm__DOT__next_state = 1U;
@@ -103,8 +119,9 @@ VL_INLINE_OPT void Vsc_dut___024root___ico_sequent__TOP__0(Vsc_dut___024root* vl
     } else if ((1U & ((~ (IData)(vlSelf->sc_dut__DOT__u_fsm__DOT__battery_connected_q)) 
                       | (IData)(vlSelf->battery_full)))) {
         vlSelf->sc_dut__DOT__u_fsm__DOT__next_state = 0U;
-    } else if ((1U & ((~ (IData)(vlSelf->battery_full)) 
-                      & (~ (IData)(vlSelf->sc_dut__DOT__u_fsm__DOT__fault_flag_q))))) {
+    } else if ((((~ (IData)(vlSelf->battery_full)) 
+                 & (~ (IData)(vlSelf->sc_dut__DOT__u_fsm__DOT__fault_flag_q))) 
+                & (IData)(vlSelf->sc_dut__DOT__u_fsm__DOT__battery_connected_q))) {
         vlSelf->sc_dut__DOT__u_fsm__DOT__next_state = 1U;
     }
     vlSelf->sc_dut__DOT__u_safety__DOT__fault_code_comb = 0U;
@@ -116,9 +133,6 @@ VL_INLINE_OPT void Vsc_dut___024root___ico_sequent__TOP__0(Vsc_dut___024root* vl
                 vlSelf->sc_dut__DOT__u_safety__DOT__fault_flag_comb 
                     = vlSelf->ml_predict_instability;
             } else if ((1U & (IData)(vlSymsp->TOP__sc_dut__DOT__sc_interf_bus.current_state))) {
-                vlSelf->sc_dut__DOT__u_safety__DOT__fault_flag_comb 
-                    = vlSelf->ml_predict_instability;
-            } else {
                 if (VL_UNLIKELY((2U == (IData)(vlSelf->sc_dut__DOT__u_safety__DOT__grid_state_enum)))) {
                     vlSelf->sc_dut__DOT__u_safety__DOT__fault_flag_comb = 1U;
                     vlSelf->sc_dut__DOT__u_safety__DOT__fault_code_comb = 3U;
@@ -147,6 +161,18 @@ VL_INLINE_OPT void Vsc_dut___024root___ico_sequent__TOP__0(Vsc_dut___024root* vl
                 if ((1U & (~ (IData)(vlSelf->reset_n)))) {
                     vlSelf->sc_dut__DOT__u_safety__DOT__fault_flag_comb = 0U;
                 }
+            } else if ((2U == (IData)(vlSelf->sc_dut__DOT__u_safety__DOT__grid_state_enum))) {
+                vlSelf->sc_dut__DOT__u_safety__DOT__fault_flag_comb = 1U;
+                vlSelf->sc_dut__DOT__u_safety__DOT__fault_code_comb = 3U;
+            } else if ((1U == (IData)(vlSelf->sc_dut__DOT__u_safety__DOT__grid_state_enum))) {
+                vlSelf->sc_dut__DOT__u_safety__DOT__fault_flag_comb = 0U;
+                vlSelf->sc_dut__DOT__u_safety__DOT__fault_code_comb = 2U;
+            } else if ((0U == (IData)(vlSelf->sc_dut__DOT__u_safety__DOT__grid_state_enum))) {
+                vlSelf->sc_dut__DOT__u_safety__DOT__fault_flag_comb = 0U;
+                vlSelf->sc_dut__DOT__u_safety__DOT__fault_code_comb = 1U;
+            } else {
+                vlSelf->sc_dut__DOT__u_safety__DOT__fault_flag_comb 
+                    = vlSelf->ml_predict_instability;
             }
         } else if ((2U & (IData)(vlSymsp->TOP__sc_dut__DOT__sc_interf_bus.current_state))) {
             if ((1U & (IData)(vlSymsp->TOP__sc_dut__DOT__sc_interf_bus.current_state))) {
@@ -224,37 +250,27 @@ void Vsc_dut___024root___eval_triggers__act(Vsc_dut___024root* vlSelf) {
 #endif
 }
 
-VL_INLINE_OPT void Vsc_dut___024root___nba_sequent__TOP__1(Vsc_dut___024root* vlSelf) {
+extern const VlUnpacked<CData/*0:0*/, 8> Vsc_dut__ConstPool__TABLE_he9cb56c3_0;
+extern const VlUnpacked<CData/*0:0*/, 8> Vsc_dut__ConstPool__TABLE_h5b8e888a_0;
+
+VL_INLINE_OPT void Vsc_dut___024root___nba_sequent__TOP__0(Vsc_dut___024root* vlSelf) {
     if (false && vlSelf) {}  // Prevent unused
     Vsc_dut__Syms* const __restrict vlSymsp VL_ATTR_UNUSED = vlSelf->vlSymsp;
-    VL_DEBUG_IF(VL_DBG_MSGF("+    Vsc_dut___024root___nba_sequent__TOP__1\n"); );
+    VL_DEBUG_IF(VL_DBG_MSGF("+    Vsc_dut___024root___nba_sequent__TOP__0\n"); );
     // Init
-    CData/*2:0*/ __Vdly__sc_dut__DOT__u_grid__DOT__sample_count;
-    __Vdly__sc_dut__DOT__u_grid__DOT__sample_count = 0;
-    CData/*0:0*/ __Vdly__sc_dut__DOT__u_grid__DOT__data_valid;
-    __Vdly__sc_dut__DOT__u_grid__DOT__data_valid = 0;
-    IData/*31:0*/ __Vdlyvval__sc_dut__DOT__u_grid__DOT__voltage_history__v0;
-    __Vdlyvval__sc_dut__DOT__u_grid__DOT__voltage_history__v0 = 0;
-    CData/*0:0*/ __Vdlyvset__sc_dut__DOT__u_grid__DOT__voltage_history__v0;
-    __Vdlyvset__sc_dut__DOT__u_grid__DOT__voltage_history__v0 = 0;
-    IData/*31:0*/ __Vdlyvval__sc_dut__DOT__u_grid__DOT__voltage_history__v1;
-    __Vdlyvval__sc_dut__DOT__u_grid__DOT__voltage_history__v1 = 0;
-    IData/*31:0*/ __Vdlyvval__sc_dut__DOT__u_grid__DOT__voltage_history__v2;
-    __Vdlyvval__sc_dut__DOT__u_grid__DOT__voltage_history__v2 = 0;
-    IData/*31:0*/ __Vdlyvval__sc_dut__DOT__u_grid__DOT__voltage_history__v3;
-    __Vdlyvval__sc_dut__DOT__u_grid__DOT__voltage_history__v3 = 0;
-    CData/*0:0*/ __Vdlyvset__sc_dut__DOT__u_grid__DOT__voltage_history__v4;
-    __Vdlyvset__sc_dut__DOT__u_grid__DOT__voltage_history__v4 = 0;
+    CData/*2:0*/ __Vtableidx1;
+    __Vtableidx1 = 0;
     std::string __Vtemp_2;
     std::string __Vtemp_3;
     std::string __Vtemp_4;
     std::string __Vtemp_5;
     // Body
-    __Vdly__sc_dut__DOT__u_grid__DOT__sample_count 
+    vlSelf->__Vdly__sc_dut__DOT__u_grid__DOT__sample_count 
         = vlSelf->sc_dut__DOT__u_grid__DOT__sample_count;
-    __Vdly__sc_dut__DOT__u_grid__DOT__data_valid = vlSelf->sc_dut__DOT__u_grid__DOT__data_valid;
-    __Vdlyvset__sc_dut__DOT__u_grid__DOT__voltage_history__v0 = 0U;
-    __Vdlyvset__sc_dut__DOT__u_grid__DOT__voltage_history__v4 = 0U;
+    vlSelf->__Vdly__sc_dut__DOT__u_grid__DOT__data_valid 
+        = vlSelf->sc_dut__DOT__u_grid__DOT__data_valid;
+    vlSelf->__Vdlyvset__sc_dut__DOT__u_grid__DOT__voltage_history__v0 = 0U;
+    vlSelf->__Vdlyvset__sc_dut__DOT__u_grid__DOT__voltage_history__v4 = 0U;
     if ((1U & (~ (IData)(vlSelf->reset_n)))) {
         vlSelf->sc_dut__DOT__u_grid__DOT__unnamedblk1__DOT__i = 4U;
     }
@@ -266,24 +282,24 @@ VL_INLINE_OPT void Vsc_dut___024root___nba_sequent__TOP__1(Vsc_dut___024root* vl
     if (vlSelf->reset_n) {
         if (vlSelf->sc_dut__DOT__u_grid__DOT__battery_connected_q) {
             if (VL_UNLIKELY((4U > (IData)(vlSelf->sc_dut__DOT__u_grid__DOT__sample_count)))) {
-                __Vdly__sc_dut__DOT__u_grid__DOT__sample_count 
+                vlSelf->__Vdly__sc_dut__DOT__u_grid__DOT__sample_count 
                     = (7U & ((IData)(1U) + (IData)(vlSelf->sc_dut__DOT__u_grid__DOT__sample_count)));
                 VL_WRITEF("data_valid=%0#, battery_connected_q=%0#, grid_voltage_adc=%0#\n",
                           1,vlSelf->sc_dut__DOT__u_grid__DOT__data_valid,
                           1,(IData)(vlSelf->sc_dut__DOT__u_grid__DOT__battery_connected_q),
                           16,vlSelf->grid_voltage_adc);
-                __Vdly__sc_dut__DOT__u_grid__DOT__data_valid 
+                vlSelf->__Vdly__sc_dut__DOT__u_grid__DOT__data_valid 
                     = (3U == (IData)(vlSelf->sc_dut__DOT__u_grid__DOT__sample_count));
             } else {
-                __Vdly__sc_dut__DOT__u_grid__DOT__data_valid = 1U;
+                vlSelf->__Vdly__sc_dut__DOT__u_grid__DOT__data_valid = 1U;
             }
         } else {
-            __Vdly__sc_dut__DOT__u_grid__DOT__sample_count = 0U;
-            __Vdly__sc_dut__DOT__u_grid__DOT__data_valid = 0U;
+            vlSelf->__Vdly__sc_dut__DOT__u_grid__DOT__sample_count = 0U;
+            vlSelf->__Vdly__sc_dut__DOT__u_grid__DOT__data_valid = 0U;
         }
     } else {
-        __Vdly__sc_dut__DOT__u_grid__DOT__sample_count = 0U;
-        __Vdly__sc_dut__DOT__u_grid__DOT__data_valid = 0U;
+        vlSelf->__Vdly__sc_dut__DOT__u_grid__DOT__sample_count = 0U;
+        vlSelf->__Vdly__sc_dut__DOT__u_grid__DOT__data_valid = 0U;
     }
     if (vlSelf->reset_n) {
         vlSymsp->TOP__sc_dut__DOT__sc_interf_bus.fault_code 
@@ -300,31 +316,7 @@ VL_INLINE_OPT void Vsc_dut___024root___nba_sequent__TOP__1(Vsc_dut___024root* vl
             vlSelf->sc_dut__DOT__u_fsm__DOT__check_wait_count = 0U;
         }
         vlSelf->sc_dut__DOT__u_fsm__DOT__fault_flag_q 
-            = (4U == (IData)(vlSymsp->TOP__sc_dut__DOT__sc_interf_bus.current_state));
-        if (vlSelf->sc_dut__DOT__u_grid__DOT__battery_connected_q) {
-            if ((2U <= (IData)(vlSelf->sc_dut__DOT__u_grid__DOT__sample_count))) {
-                vlSelf->sc_dut__DOT__u_grid__DOT__filter_volt 
-                    = VL_SHIFTR_III(32,32,32, vlSelf->sc_dut__DOT__u_grid__DOT__sum_voltage, 2U);
-                vlSelf->sc_dut__DOT__u_grid__DOT__sum_voltage 
-                    = ((((IData)(vlSelf->grid_voltage_adc) 
-                         + vlSelf->sc_dut__DOT__u_grid__DOT__voltage_history
-                         [0U]) + vlSelf->sc_dut__DOT__u_grid__DOT__voltage_history
-                        [1U]) + vlSelf->sc_dut__DOT__u_grid__DOT__voltage_history
-                       [2U]);
-            }
-            __Vdlyvval__sc_dut__DOT__u_grid__DOT__voltage_history__v0 
-                = vlSelf->sc_dut__DOT__u_grid__DOT__voltage_history
-                [2U];
-            __Vdlyvset__sc_dut__DOT__u_grid__DOT__voltage_history__v0 = 1U;
-            __Vdlyvval__sc_dut__DOT__u_grid__DOT__voltage_history__v1 
-                = vlSelf->sc_dut__DOT__u_grid__DOT__voltage_history
-                [1U];
-            __Vdlyvval__sc_dut__DOT__u_grid__DOT__voltage_history__v2 
-                = vlSelf->sc_dut__DOT__u_grid__DOT__voltage_history
-                [0U];
-            __Vdlyvval__sc_dut__DOT__u_grid__DOT__voltage_history__v3 
-                = vlSelf->grid_voltage_adc;
-        }
+            = (5U == (IData)(vlSymsp->TOP__sc_dut__DOT__sc_interf_bus.current_state));
         vlSymsp->TOP__sc_dut__DOT__sc_interf_bus.grid_state 
             = ((((0U == (IData)(vlSelf->sc_dut__DOT__u_grid__DOT__grid_state_enum)) 
                  | (1U == (IData)(vlSelf->sc_dut__DOT__u_grid__DOT__grid_state_enum))) 
@@ -338,10 +330,8 @@ VL_INLINE_OPT void Vsc_dut___024root___nba_sequent__TOP__1(Vsc_dut___024root* vl
         vlSelf->sc_dut__DOT__u_fsm__DOT__grid_state_q = 0U;
         vlSelf->sc_dut__DOT__u_fsm__DOT__check_wait_count = 0U;
         vlSelf->sc_dut__DOT__u_fsm__DOT__fault_flag_q = 0U;
-        vlSelf->sc_dut__DOT__u_grid__DOT__filter_volt = 0U;
         vlSymsp->TOP__sc_dut__DOT__sc_interf_bus.grid_state = 0U;
         vlSymsp->TOP__sc_dut__DOT__sc_interf_bus.current_state = 0U;
-        __Vdlyvset__sc_dut__DOT__u_grid__DOT__voltage_history__v4 = 1U;
     }
     vlSymsp->TOP__sc_dut__DOT__sc_interf_bus.fault_flag 
         = ((IData)(vlSelf->reset_n) && (IData)(vlSelf->sc_dut__DOT__u_safety__DOT__fault_flag_comb));
@@ -351,94 +341,76 @@ VL_INLINE_OPT void Vsc_dut___024root___nba_sequent__TOP__1(Vsc_dut___024root* vl
     vlSelf->fault_flag = vlSymsp->TOP__sc_dut__DOT__sc_interf_bus.fault_flag;
     vlSelf->sc_dut__DOT__u_fsm__DOT__data_valid_q = 
         ((IData)(vlSelf->reset_n) && (IData)(vlSelf->sc_dut__DOT__u_grid__DOT__data_valid));
-    vlSelf->sc_dut__DOT__u_grid__DOT__data_valid = __Vdly__sc_dut__DOT__u_grid__DOT__data_valid;
-    vlSelf->sc_dut__DOT__u_grid__DOT__sample_count 
-        = __Vdly__sc_dut__DOT__u_grid__DOT__sample_count;
-    if (__Vdlyvset__sc_dut__DOT__u_grid__DOT__voltage_history__v0) {
-        vlSelf->sc_dut__DOT__u_grid__DOT__voltage_history[3U] 
-            = __Vdlyvval__sc_dut__DOT__u_grid__DOT__voltage_history__v0;
-        vlSelf->sc_dut__DOT__u_grid__DOT__voltage_history[2U] 
-            = __Vdlyvval__sc_dut__DOT__u_grid__DOT__voltage_history__v1;
-        vlSelf->sc_dut__DOT__u_grid__DOT__voltage_history[1U] 
-            = __Vdlyvval__sc_dut__DOT__u_grid__DOT__voltage_history__v2;
-        vlSelf->sc_dut__DOT__u_grid__DOT__voltage_history[0U] 
-            = __Vdlyvval__sc_dut__DOT__u_grid__DOT__voltage_history__v3;
-    }
-    if (__Vdlyvset__sc_dut__DOT__u_grid__DOT__voltage_history__v4) {
-        vlSelf->sc_dut__DOT__u_grid__DOT__voltage_history[0U] = 0U;
-        vlSelf->sc_dut__DOT__u_grid__DOT__voltage_history[1U] = 0U;
-        vlSelf->sc_dut__DOT__u_grid__DOT__voltage_history[2U] = 0U;
-        vlSelf->sc_dut__DOT__u_grid__DOT__voltage_history[3U] = 0U;
-    }
-    vlSelf->sc_dut__DOT__u_grid__DOT__grid_state_enum 
-        = ((IData)(vlSelf->sc_dut__DOT__u_grid__DOT__data_valid)
-            ? ((((0xa410U > vlSelf->sc_dut__DOT__u_grid__DOT__filter_volt) 
-                 | (0x13880U < vlSelf->sc_dut__DOT__u_grid__DOT__filter_volt)) 
-                | (IData)(vlSelf->ml_predict_instability))
-                ? 2U : (((0xd2f0U > vlSelf->sc_dut__DOT__u_grid__DOT__filter_volt) 
-                         | (0x124f8U < vlSelf->sc_dut__DOT__u_grid__DOT__filter_volt))
-                         ? 1U : (((0xd2f0U < vlSelf->sc_dut__DOT__u_grid__DOT__filter_volt) 
-                                  & (0x124f8U > vlSelf->sc_dut__DOT__u_grid__DOT__filter_volt))
-                                  ? 0U : 2U))) : 0U);
-    vlSelf->charge_enable = ((1U & (~ ((IData)(vlSymsp->TOP__sc_dut__DOT__sc_interf_bus.current_state) 
-                                       >> 2U))) && 
-                             ((1U & ((IData)(vlSymsp->TOP__sc_dut__DOT__sc_interf_bus.current_state) 
-                                     >> 1U)) && (1U 
-                                                 & (~ (IData)(vlSymsp->TOP__sc_dut__DOT__sc_interf_bus.current_state)))));
     vlSelf->current_state = vlSymsp->TOP__sc_dut__DOT__sc_interf_bus.current_state;
     vlSelf->sc_dut__DOT__u_fsm__DOT__next_state = vlSymsp->TOP__sc_dut__DOT__sc_interf_bus.current_state;
     if ((4U & (IData)(vlSymsp->TOP__sc_dut__DOT__sc_interf_bus.current_state))) {
-        if ((2U & (IData)(vlSymsp->TOP__sc_dut__DOT__sc_interf_bus.current_state))) {
-            vlSelf->sc_dut__DOT__u_fsm__DOT__next_state = 0U;
-        } else if ((1U & (IData)(vlSymsp->TOP__sc_dut__DOT__sc_interf_bus.current_state))) {
-            vlSelf->sc_dut__DOT__u_fsm__DOT__next_state = 0U;
-        } else if (vlSelf->ml_predict_instability) {
-            vlSelf->sc_dut__DOT__u_fsm__DOT__next_state = 4U;
-        } else if ((1U & ((~ (IData)(vlSelf->reset_n)) 
-                          | (~ (IData)(vlSelf->sc_dut__DOT__u_fsm__DOT__battery_connected_q))))) {
-            vlSelf->sc_dut__DOT__u_fsm__DOT__next_state = 0U;
-        } else if ((((0U == (IData)(vlSelf->sc_dut__DOT__u_fsm__DOT__grid_state_q)) 
-                     & (~ (IData)(vlSelf->battery_full))) 
-                    & (~ (IData)(vlSelf->ml_predict_instability)))) {
-            vlSelf->sc_dut__DOT__u_fsm__DOT__next_state = 1U;
-        }
-    } else if ((2U & (IData)(vlSymsp->TOP__sc_dut__DOT__sc_interf_bus.current_state))) {
-        if ((1U & (IData)(vlSymsp->TOP__sc_dut__DOT__sc_interf_bus.current_state))) {
-            if ((1U & ((IData)(vlSelf->battery_full) 
-                       | (~ (IData)(vlSelf->sc_dut__DOT__u_fsm__DOT__battery_connected_q))))) {
+        if ((1U & (~ ((IData)(vlSymsp->TOP__sc_dut__DOT__sc_interf_bus.current_state) 
+                      >> 1U)))) {
+            if ((1U & (IData)(vlSymsp->TOP__sc_dut__DOT__sc_interf_bus.current_state))) {
+                if (vlSelf->ml_predict_instability) {
+                    vlSelf->sc_dut__DOT__u_fsm__DOT__next_state = 5U;
+                } else if ((1U & ((~ (IData)(vlSelf->reset_n)) 
+                                  | (~ (IData)(vlSelf->sc_dut__DOT__u_fsm__DOT__battery_connected_q))))) {
+                    vlSelf->sc_dut__DOT__u_fsm__DOT__next_state = 0U;
+                } else if ((((0U == (IData)(vlSelf->sc_dut__DOT__u_fsm__DOT__grid_state_q)) 
+                             & (~ (IData)(vlSelf->battery_full))) 
+                            & (~ (IData)(vlSelf->ml_predict_instability)))) {
+                    vlSelf->sc_dut__DOT__u_fsm__DOT__next_state = 1U;
+                }
+            } else if ((1U & ((IData)(vlSelf->battery_full) 
+                              | (~ (IData)(vlSelf->sc_dut__DOT__u_fsm__DOT__battery_connected_q))))) {
                 vlSelf->sc_dut__DOT__u_fsm__DOT__next_state = 0U;
             } else if (((0U == (IData)(vlSelf->sc_dut__DOT__u_fsm__DOT__grid_state_q)) 
                         & (~ (IData)(vlSelf->ml_predict_instability)))) {
-                vlSelf->sc_dut__DOT__u_fsm__DOT__next_state = 2U;
+                vlSelf->sc_dut__DOT__u_fsm__DOT__next_state 
+                    = ((IData)(vlSelf->cmd) ? 3U : 2U);
             } else if (((IData)(vlSelf->ml_predict_instability) 
                         | (2U == (IData)(vlSelf->sc_dut__DOT__u_fsm__DOT__grid_state_q)))) {
-                vlSelf->sc_dut__DOT__u_fsm__DOT__next_state = 4U;
+                vlSelf->sc_dut__DOT__u_fsm__DOT__next_state = 5U;
             } else if ((1U == (IData)(vlSelf->sc_dut__DOT__u_fsm__DOT__grid_state_q))) {
-                vlSelf->sc_dut__DOT__u_fsm__DOT__next_state = 3U;
+                vlSelf->sc_dut__DOT__u_fsm__DOT__next_state = 4U;
+            }
+        }
+    } else if ((2U & (IData)(vlSymsp->TOP__sc_dut__DOT__sc_interf_bus.current_state))) {
+        if ((1U & (IData)(vlSymsp->TOP__sc_dut__DOT__sc_interf_bus.current_state))) {
+            if (((IData)(vlSelf->ml_predict_instability) 
+                 | (2U == (IData)(vlSelf->sc_dut__DOT__u_fsm__DOT__grid_state_q)))) {
+                vlSelf->sc_dut__DOT__u_fsm__DOT__next_state = 5U;
+            } else if (vlSelf->cmd) {
+                if ((1U == (IData)(vlSelf->sc_dut__DOT__u_fsm__DOT__grid_state_q))) {
+                    vlSelf->sc_dut__DOT__u_fsm__DOT__next_state = 4U;
+                } else if ((1U & ((~ (IData)(vlSelf->sc_dut__DOT__u_fsm__DOT__battery_connected_q)) 
+                                  | (~ (IData)(vlSelf->sc_dut__DOT__u_fsm__DOT__data_valid_q))))) {
+                    vlSelf->sc_dut__DOT__u_fsm__DOT__next_state = 0U;
+                }
+            } else {
+                vlSelf->sc_dut__DOT__u_fsm__DOT__next_state = 2U;
             }
         } else if (vlSelf->ml_predict_instability) {
-            vlSelf->sc_dut__DOT__u_fsm__DOT__next_state = 4U;
+            vlSelf->sc_dut__DOT__u_fsm__DOT__next_state = 5U;
         } else if ((2U == (IData)(vlSelf->sc_dut__DOT__u_fsm__DOT__grid_state_q))) {
-            vlSelf->sc_dut__DOT__u_fsm__DOT__next_state = 4U;
+            vlSelf->sc_dut__DOT__u_fsm__DOT__next_state = 5U;
         } else if ((1U == (IData)(vlSelf->sc_dut__DOT__u_fsm__DOT__grid_state_q))) {
-            vlSelf->sc_dut__DOT__u_fsm__DOT__next_state = 3U;
+            vlSelf->sc_dut__DOT__u_fsm__DOT__next_state = 4U;
         } else if ((1U & (((IData)(vlSelf->battery_full) 
                            | (~ (IData)(vlSelf->sc_dut__DOT__u_fsm__DOT__battery_connected_q))) 
                           | (~ (IData)(vlSelf->sc_dut__DOT__u_fsm__DOT__data_valid_q))))) {
             vlSelf->sc_dut__DOT__u_fsm__DOT__next_state = 0U;
         } else if ((0U == (IData)(vlSelf->sc_dut__DOT__u_fsm__DOT__grid_state_q))) {
-            vlSelf->sc_dut__DOT__u_fsm__DOT__next_state = 2U;
+            vlSelf->sc_dut__DOT__u_fsm__DOT__next_state 
+                = ((IData)(vlSelf->cmd) ? 3U : 2U);
         }
     } else if ((1U & (IData)(vlSymsp->TOP__sc_dut__DOT__sc_interf_bus.current_state))) {
         if (vlSelf->sc_dut__DOT__u_fsm__DOT__data_valid_q) {
             if ((3U > (IData)(vlSelf->sc_dut__DOT__u_fsm__DOT__check_wait_count))) {
                 vlSelf->sc_dut__DOT__u_fsm__DOT__next_state = 1U;
             } else if ((2U == (IData)(vlSelf->sc_dut__DOT__u_fsm__DOT__grid_state_q))) {
-                vlSelf->sc_dut__DOT__u_fsm__DOT__next_state = 4U;
+                vlSelf->sc_dut__DOT__u_fsm__DOT__next_state = 5U;
             } else if ((1U == (IData)(vlSelf->sc_dut__DOT__u_fsm__DOT__grid_state_q))) {
-                vlSelf->sc_dut__DOT__u_fsm__DOT__next_state = 3U;
+                vlSelf->sc_dut__DOT__u_fsm__DOT__next_state = 4U;
             } else if ((0U == (IData)(vlSelf->sc_dut__DOT__u_fsm__DOT__grid_state_q))) {
-                vlSelf->sc_dut__DOT__u_fsm__DOT__next_state = 2U;
+                vlSelf->sc_dut__DOT__u_fsm__DOT__next_state 
+                    = ((IData)(vlSelf->cmd) ? 3U : 2U);
             }
         } else {
             vlSelf->sc_dut__DOT__u_fsm__DOT__next_state = 1U;
@@ -446,8 +418,9 @@ VL_INLINE_OPT void Vsc_dut___024root___nba_sequent__TOP__1(Vsc_dut___024root* vl
     } else if ((1U & ((~ (IData)(vlSelf->sc_dut__DOT__u_fsm__DOT__battery_connected_q)) 
                       | (IData)(vlSelf->battery_full)))) {
         vlSelf->sc_dut__DOT__u_fsm__DOT__next_state = 0U;
-    } else if ((1U & ((~ (IData)(vlSelf->battery_full)) 
-                      & (~ (IData)(vlSelf->sc_dut__DOT__u_fsm__DOT__fault_flag_q))))) {
+    } else if ((((~ (IData)(vlSelf->battery_full)) 
+                 & (~ (IData)(vlSelf->sc_dut__DOT__u_fsm__DOT__fault_flag_q))) 
+                & (IData)(vlSelf->sc_dut__DOT__u_fsm__DOT__battery_connected_q))) {
         vlSelf->sc_dut__DOT__u_fsm__DOT__next_state = 1U;
     }
     vlSelf->sc_dut__DOT__u_safety__DOT__fault_code_comb = 0U;
@@ -459,9 +432,6 @@ VL_INLINE_OPT void Vsc_dut___024root___nba_sequent__TOP__1(Vsc_dut___024root* vl
                 vlSelf->sc_dut__DOT__u_safety__DOT__fault_flag_comb 
                     = vlSelf->ml_predict_instability;
             } else if ((1U & (IData)(vlSymsp->TOP__sc_dut__DOT__sc_interf_bus.current_state))) {
-                vlSelf->sc_dut__DOT__u_safety__DOT__fault_flag_comb 
-                    = vlSelf->ml_predict_instability;
-            } else {
                 if (VL_UNLIKELY((2U == (IData)(vlSelf->sc_dut__DOT__u_safety__DOT__grid_state_enum)))) {
                     vlSelf->sc_dut__DOT__u_safety__DOT__fault_flag_comb = 1U;
                     vlSelf->sc_dut__DOT__u_safety__DOT__fault_code_comb = 3U;
@@ -490,6 +460,18 @@ VL_INLINE_OPT void Vsc_dut___024root___nba_sequent__TOP__1(Vsc_dut___024root* vl
                 if ((1U & (~ (IData)(vlSelf->reset_n)))) {
                     vlSelf->sc_dut__DOT__u_safety__DOT__fault_flag_comb = 0U;
                 }
+            } else if ((2U == (IData)(vlSelf->sc_dut__DOT__u_safety__DOT__grid_state_enum))) {
+                vlSelf->sc_dut__DOT__u_safety__DOT__fault_flag_comb = 1U;
+                vlSelf->sc_dut__DOT__u_safety__DOT__fault_code_comb = 3U;
+            } else if ((1U == (IData)(vlSelf->sc_dut__DOT__u_safety__DOT__grid_state_enum))) {
+                vlSelf->sc_dut__DOT__u_safety__DOT__fault_flag_comb = 0U;
+                vlSelf->sc_dut__DOT__u_safety__DOT__fault_code_comb = 2U;
+            } else if ((0U == (IData)(vlSelf->sc_dut__DOT__u_safety__DOT__grid_state_enum))) {
+                vlSelf->sc_dut__DOT__u_safety__DOT__fault_flag_comb = 0U;
+                vlSelf->sc_dut__DOT__u_safety__DOT__fault_code_comb = 1U;
+            } else {
+                vlSelf->sc_dut__DOT__u_safety__DOT__fault_flag_comb 
+                    = vlSelf->ml_predict_instability;
             }
         } else if ((2U & (IData)(vlSymsp->TOP__sc_dut__DOT__sc_interf_bus.current_state))) {
             if ((1U & (IData)(vlSymsp->TOP__sc_dut__DOT__sc_interf_bus.current_state))) {
@@ -541,6 +523,11 @@ VL_INLINE_OPT void Vsc_dut___024root___nba_sequent__TOP__1(Vsc_dut___024root* vl
             vlSelf->sc_dut__DOT__u_safety__DOT__fault_code_comb = 0U;
         }
     }
-    vlSelf->sc_dut__DOT__u_grid__DOT__battery_connected_q 
-        = ((IData)(vlSelf->reset_n) & (IData)(vlSelf->battery_connected));
+    __Vtableidx1 = vlSymsp->TOP__sc_dut__DOT__sc_interf_bus.current_state;
+    vlSymsp->TOP__sc_dut__DOT__sc_interf_bus.charge_enable 
+        = Vsc_dut__ConstPool__TABLE_he9cb56c3_0[__Vtableidx1];
+    vlSymsp->TOP__sc_dut__DOT__sc_interf_bus.power_discharge 
+        = Vsc_dut__ConstPool__TABLE_h5b8e888a_0[__Vtableidx1];
+    vlSelf->charge_enable = vlSymsp->TOP__sc_dut__DOT__sc_interf_bus.charge_enable;
+    vlSelf->power_discharge = vlSymsp->TOP__sc_dut__DOT__sc_interf_bus.power_discharge;
 }
