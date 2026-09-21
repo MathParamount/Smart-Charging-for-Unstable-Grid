@@ -38,7 +38,7 @@ always_ff @(posedge clk or negedge reset_n) begin
         grid_state_q <= GRID_NORMAL;
         battery_connected_q <= 0;
         fsm_bus.current_state <= IDLE;
-	    fault_flag_q <= 0;
+	fault_flag_q <= 0;
         check_wait_count <= 0;
      end
     else begin
