@@ -1,5 +1,5 @@
 Plecs {
-  Name          "Smart_charge_Version3S"
+  Name          "Smart_charge_simulation_vteste"
   Version       "5.0"
   CircuitModel  "DiscStateSpace"
   StartTime     "0.0"
