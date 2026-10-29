@@ -83,7 +83,7 @@ The system initializes with a reset signal for validation purposes, after which 
 
 The analog subsystem focuses on co-simulation and actuator interfacing, interacting directly with grid conditions to regulate energy delivery to the load. Physical connections introduce challenges such as synchronization issues and switching delays. However, because the electrical grid operates at a relatively low frequency (e.g., 60 Hz, with a ~16.6 ms period), the time required to measure and make decisions is considerably slower compared to high-speed digital logic. Nevertheless, the fault-clearing time (the time required to safely interrupt or revert an action) is fundamental for overall system stabilization. Hence, to bridge the digital and analog domains, the digital control logic was re-implemented as a C-Script within PLECS, strictly adhering to the platform's coding rules.
 
-<img width="1586" height="835" alt="circuitoverw_Top" src="https://github.com/user-attachments/assets/64ec2fe3-ebec-4605-9893-935ddbb44600" />
+<img width="1891" height="889" alt="plecs_analogCircuit" src="https://github.com/user-attachments/assets/a70c6ac1-7ae7-4e58-8a84-c0ea85371a11" />
 
 
 ### Power Management System (PMS) Design
@@ -91,12 +91,14 @@ The PMS was designed to process a three-phase power supply with a 120-degree pha
 
 <img width="1374" height="526" alt="code_declaration1" src="https://github.com/user-attachments/assets/c8460117-8fa7-451b-a0b3-2e873c7c11de" />
 
-
 Inside the PMS C-Script, the Root Mean Square (RMS) voltage for each phase is calculated using a moving average filter. The output function computes the individual phase RMS values, which are then combined to calculate an **equivalent grid voltage** (the aggregate RMS of the three phases).
 
 ### ⚡️ Grid State Evaluation & BESS Control
 
 Based on this equivalent grid voltage, the system determines the current grid condition. This information is then processed by a Finite State Machine (FSM), which defines the current operational stage. Finally, the FSM sends this state information to the Battery Energy Storage System (BESS) via the `bess_cmd` signal, dictating the battery's operational mode and defining the simulation test scenarios.
+
+<img width="1487" height="813" alt="bessImplement_Plecs" src="https://github.com/user-attachments/assets/457657f5-f3e7-4990-9abd-33e996182c7c" />
+
 
 ### Signal Definitions
 
