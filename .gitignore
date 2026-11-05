@@ -1,7 +1,7 @@
 # verilator
 build/
 obj_dir/
-
+build_ngspice/
 
 # random files
 wave.vcd
