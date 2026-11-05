@@ -1,0 +1,8 @@
+# verilator
+build/
+obj_dir/
+
+
+# random files
+wave.vcd
+.github/workflows/
